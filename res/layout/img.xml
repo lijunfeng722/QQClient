@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/frame_layout"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+        android:orientation="vertical"  
+        android:layout_width="wrap_content"  
+        android:layout_height="fill_parent"  
+        android:gravity="center"
+        >
+   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+       android:orientation="horizontal"  
+       android:layout_width="fill_parent"  
+       android:layout_height="wrap_content"  
+       android:gravity="center"
+       android:id="@+id/layoutImage"  
+       > 
+   <ImageView  
+      android:id="@+id/myImageView"  
+      android:layout_width="fill_parent"  
+      android:layout_height="wrap_content"  
+      />  
+</LinearLayout>
+</LinearLayout>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+android:id="@+id/relative_layout"
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"  
+        >  
+        <Button  
+            android:id="@+id/image_small"  
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:layout_alignParentLeft="true"  
+            android:gravity="left" 
+            android:enabled="false"
+            android:visibility="gone"
+            android:text="-"  
+            />  
+        <Button  
+            android:id="@+id/image_close"  
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:text="X"
+            /> 
+        <Button  
+            android:id="@+id/image_big"  
+            android:layout_width="wrap_content"  
+            android:layout_height="wrap_content"  
+            android:layout_alignParentRight="true"  
+            android:gravity="right"  
+            android:visibility="gone"
+            android:text="+"  
+            />  
+    </RelativeLayout>  
+</FrameLayout>
