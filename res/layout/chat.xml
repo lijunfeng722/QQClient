@@ -10,20 +10,17 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.01"
-        android:background="@drawable/title_bar"
+        android:background="@color/blue_title"
         android:orientation="vertical" >
 
         <Button
             android:id="@+id/chat_back"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:background="@drawable/selector_btn_back"
-            android:paddingLeft="10dp"
-            android:text="会话"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:paddingLeft="10dp" />
 
         <TextView
             android:id="@+id/chat_name"
@@ -54,7 +51,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.8"
-        android:background="@drawable/layout_bg1" >
+        android:background="@color/blue_title"
+        android:padding="5dp" >
 
         <EditText
             android:id="@+id/chat_editmessage"
@@ -64,10 +62,10 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/chat_send"
-            android:background="@drawable/edittext1"
+            android:background="@drawable/yuanjiaojuxing_white"
             android:singleLine="true"
             android:textSize="18sp" />
-        
+
         <Button
             android:id="@+id/chat_send_someting"
             android:layout_width="20dp"
@@ -84,12 +82,11 @@
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_alignTop="@+id/chat_editmessage"
+            android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/chat_send_someting"
             android:background="@drawable/chat_send_button_bg"
-             android:layout_marginRight="10dp"
             android:text="发送"
             android:textSize="20sp" />
-   
     </RelativeLayout>
 
 </LinearLayout>

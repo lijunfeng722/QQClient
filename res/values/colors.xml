@@ -138,6 +138,7 @@
     <color name="setting_text1">#ff000000</color>
     <color name="setting_text2">#ff798089</color>
     <color name="setting_bg">#ffe3e6e8</color>
-    <color name="green">#ff00ff00</color>
+    <color name="green">#33cc66</color>
+    <color name="blue_title">#330099</color>
 
 </resources>

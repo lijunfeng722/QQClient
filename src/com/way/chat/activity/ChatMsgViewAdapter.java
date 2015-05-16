@@ -24,10 +24,11 @@ import java.util.List;
  */
 public class ChatMsgViewAdapter extends BaseAdapter
 {
-	/*private int[] imgs =
-	{ R.drawable.icon, R.drawable.f1, R.drawable.f2, R.drawable.f3,
-			R.drawable.f4, R.drawable.f5, R.drawable.f6, R.drawable.f7,
-			R.drawable.f8, R.drawable.f9 };*/
+	/*
+	 * private int[] imgs = { R.drawable.icon, R.drawable.f1, R.drawable.f2,
+	 * R.drawable.f3, R.drawable.f4, R.drawable.f5, R.drawable.f6,
+	 * R.drawable.f7, R.drawable.f8, R.drawable.f9 };
+	 */
 	private Bitmap imgs;
 
 	public static interface IMsgViewType
@@ -107,8 +108,6 @@ public class ChatMsgViewAdapter extends BaseAdapter
 			}
 
 			viewHolder = new ViewHolder();
-			viewHolder.tvSendTime = (TextView) convertView
-					.findViewById(R.id.tv_sendtime);
 			viewHolder.tvUserName = (TextView) convertView
 					.findViewById(R.id.tv_username);
 			viewHolder.tvContent = (TextView) convertView
@@ -117,7 +116,6 @@ public class ChatMsgViewAdapter extends BaseAdapter
 					.findViewById(R.id.iv_userhead);
 			viewHolder.isComMsg = isComMsg;
 
-			
 			convertView.setTag(viewHolder);
 		} else
 		{
@@ -131,48 +129,48 @@ public class ChatMsgViewAdapter extends BaseAdapter
 			{
 				if (entity.getMsgType() == ChatMsgEntity.MSG_TYPE_VIOCE)
 				{
-					MediaPlayer mPlayer = MediaPlayer.create(context,Uri.parse(entity.getPath()));
-					System.out.println("tvContent onclick getPath="+entity.getPath());
+					MediaPlayer mPlayer = MediaPlayer.create(context,
+							Uri.parse(entity.getPath()));
+					System.out.println("tvContent onclick getPath="
+							+ entity.getPath());
 					mPlayer.start();
-				}
-				else if (entity.getMsgType() == ChatMsgEntity.MSG_TYPE_IMAGE)
+				} else if (entity.getMsgType() == ChatMsgEntity.MSG_TYPE_IMAGE)
 				{
-					Bitmap bmp=entity.getImageByte();
+					Bitmap bmp = entity.getImageByte();
 					System.out.println(bmp);
-					System.out.println("tvContent onclick getPath="+entity.getPath());
-					MyDialog dialog = new MyDialog(context,bmp);
+					System.out.println("tvContent onclick getPath="
+							+ entity.getPath());
+					MyDialog dialog = new MyDialog(context, bmp);
 					dialog.show();
-					
-				}
-				else
-					Toast.makeText(context, entity.getMessage(), Toast.LENGTH_SHORT).show();
+
+				} else
+					Toast.makeText(context, entity.getMessage(),
+							Toast.LENGTH_SHORT).show();
 			}
 		});
-		viewHolder.tvSendTime.setText(entity.getDate());
 		viewHolder.tvUserName.setText(entity.getName());
 		int type = entity.getMsgType();
 		if (type == 0)
 			viewHolder.tvContent.setText(entity.getMessage());
-		else if(type==1)
+		else if (type == 1)
 		{
 			MediaPlayer mp = MediaPlayer.create(context,
 					Uri.parse(entity.getPath()));
 			System.out.println("entity.getPath=" + entity.getPath());
 			int duration = mp.getDuration();
 			viewHolder.tvContent.setText(")))" + duration);
-		}
-		else{
+		} else
+		{
 			Drawable drawable = new BitmapDrawable(entity.getImageByte());
 			viewHolder.tvContent.setText("点我有惊喜");
 		}
-		Drawable drawable = new BitmapDrawable(imgs); 
+		Drawable drawable = new BitmapDrawable(imgs);
 		viewHolder.icon.setImageDrawable(drawable);
 		return convertView;
 	}
 
 	static class ViewHolder
 	{
-		public TextView tvSendTime;
 		public TextView tvUserName;
 		public TextView tvContent;
 		public ImageView image;
