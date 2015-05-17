@@ -119,7 +119,7 @@ public class MyExAdapter extends BaseExpandableListAdapter {
 				u.setId(Integer.parseInt(id));
 				u.setImg(imgs);
 				u.setEmail(email);
-				Intent intent = new Intent(context, FriendMsg2.class);
+				Intent intent = new Intent(context, FriendMsg.class);
 				intent.putExtra("user", u);
 				context.startActivity(intent);
 				// Toast.makeText(Tab2.this, "开始聊天", 0).show();

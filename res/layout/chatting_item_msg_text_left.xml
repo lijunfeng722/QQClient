@@ -2,35 +2,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
+    android:background="@color/transparent"
+    android:descendantFocusability="blocksDescendants"
     android:orientation="vertical"
-    android:padding="6dp" 
-    android:descendantFocusability="blocksDescendants">"
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/tv_sendtime"
-            style="@style/chat_text_date_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    android:padding="6dp" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp" >
 
+        <TextView
+            android:id="@+id/tv_username"
+            style="@style/chat_text_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/tv_chatcontent" />
+
         <ImageView
             android:id="@+id/iv_userhead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
+            android:layout_below="@id/tv_username"
             android:background="@drawable/img_select"
             android:focusable="false" />
 
@@ -39,18 +35,10 @@
             style="@style/chat_content_date_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@id/iv_userhead"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_userhead"
             android:background="@drawable/chatfrom_bg" />
 
-        <TextView
-            android:id="@+id/tv_username"
-            style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@id/iv_userhead"
-            android:layout_toLeftOf="@id/tv_chatcontent" />
     </RelativeLayout>
 
 </LinearLayout>

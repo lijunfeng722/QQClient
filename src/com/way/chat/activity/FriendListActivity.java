@@ -153,7 +153,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	@Override
 	protected void onResume()
 	{// 如果从后台恢复，服务被系统干掉，就重启一下服务
-		// TODO Auto-generated method stub
 		newNum = application.getRecentNum();// 从新获取一下全局变量
 		if (!application.isClientStart())
 		{
@@ -311,7 +310,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	@Override
 	public void onClick(View v)
 	{
-		// TODO Auto-generated method stub
 		switch (v.getId())
 		{
 		case R.id.tab1:
@@ -338,7 +336,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	@Override
 	protected void onDestroy()
 	{
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		if (messageDB != null)
 			messageDB.close();
@@ -420,7 +417,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	@Override
 	public void getMessage(TranObject msg)
 	{// 重写父类的方法，处理消息
-		// TODO Auto-generated method stub
 		switch (msg.getType())
 		{
 		case MESSAGE:
@@ -462,7 +458,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	@Override
 	public void onBackPressed()
 	{// 捕获返回按键事件，进入后台运行
-		// TODO Auto-generated method stub
 		// 发送广播，通知服务，已进入后台运行
 		Intent i = new Intent();
 		i.setAction(Constants.BACKKEY_ACTION);
@@ -480,7 +475,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 
 		public void onPageSelected(int arg0)
 		{
-			// TODO Auto-generated method stub
 			Animation animation = null;
 			switch (arg0)
 			{
@@ -522,14 +516,10 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 
 		public void onPageScrolled(int arg0, float arg1, int arg2)
 		{
-			// TODO Auto-generated method stub
-
 		}
 
 		public void onPageScrollStateChanged(int arg0)
 		{
-			// TODO Auto-generated method stub
-
 		}
 	}
 
@@ -618,7 +608,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 
 	protected void addLoaderTOLBS()
 	{
-		// TODO Auto-generated method stub
 		BDLocation location = ((MyApplication) this.getApplication())
 				.getLocation();
 
@@ -663,7 +652,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 					System.out.println("size:" + size);
 					if (size == 0)// 无该title（用户）记录
 					{
-						// TODO 添加本title（用户）的记录
 						System.out.println("无该title（用户）记录");
 						addLoaderTOLBS();
 					} else if (size == 1)
@@ -698,7 +686,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 					.setLocation(location);
 
 			handler = new MyHandler();
-			// TODO 查找当前用户在百度LBS云中是否保存了位置
 			Map<String, String> map = new HashMap<String, String>();
 			String title = getLoaderID();
 			map.put("title", title);
