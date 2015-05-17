@@ -98,12 +98,12 @@
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
-            android:name=".FriendMsg"
+            android:name=".StrangerMsg"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
-            android:name=".FriendMsg2"
+            android:name=".FriendMsg"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>

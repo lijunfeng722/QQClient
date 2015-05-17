@@ -106,7 +106,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 				{
 					entity.setName(user.getName());
 				}
-				if (entity.getImg() ==null)
+				if (entity.getImg() == null)
 				{
 					entity.setImg(user.getImg());
 				}
@@ -153,7 +153,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 				@Override
 				public void back(String str)
 				{
-					if("选择发送录音".equals(str))
+					if ("选择发送录音".equals(str))
 					{
 						String savePath = Constants.SAVEPATH + "/"
 								+ util.getName() + "/recordFile";
@@ -201,7 +201,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 								entity.setName(util.getName());
 								entity.setDate(MyDate.getDateEN());
 								entity.setMessage("我是录音");
-						//		entity.setImg(util.getImg());
+								// entity.setImg(util.getImg());
 								entity.setIsComMsg(false);
 								entity.setMsgType(ChatMsgEntity.MSG_TYPE_VIOCE);
 								entity.setVoiceByte(data);
@@ -210,12 +210,13 @@ public class ChatActivity extends MyActivity implements OnClickListener
 							}
 						});
 						dialog.show();
-					}else if("选择发送图片".equals(str))
+					} else if ("选择发送图片".equals(str))
 					{
-						//TODO 发送图片
+						// TODO 发送图片
 						System.out.println("进行发送图片");
-						Resources res=getResources();
-						Bitmap bmp=BitmapFactory.decodeResource(res, R.drawable.top_back_left);
+						Resources res = getResources();
+						Bitmap bmp = BitmapFactory.decodeResource(res,
+								R.drawable.top_back_left);
 						ChatMsgEntity entity = new ChatMsgEntity();
 						entity.setName(util.getName());
 						entity.setDate(MyDate.getDateEN());
@@ -345,7 +346,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 				}
 				Bitmap img = tm.getImageByte();
 				entity.setImageByte(img);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();    
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				img.compress(Bitmap.CompressFormat.JPEG, 100, baos);
 				try
 				{

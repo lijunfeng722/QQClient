@@ -350,10 +350,8 @@ public class PinTuActy extends MyActivity
 				User friend = (User) msg.getObject();
 				System.out.println(friend);
 					Intent intent = new Intent();  
-	                // 指定intent要启动的类  
-	                intent.setClass(PinTuActy.this, FriendMsg.class);  
+	                intent.setClass(PinTuActy.this, StrangerMsg.class);  
 	                intent.putExtra(Constants.MSGKEY, msg);
-	                //启动一个新的Activity  
 	                startActivity(intent); 
 	                finish();
 					

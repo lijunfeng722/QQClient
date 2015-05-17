@@ -1,15 +1,5 @@
 package com.way.chat.activity;
 
-import com.way.chat.common.bean.User;
-import com.way.chat.common.tran.bean.TranObject;
-import com.way.chat.common.tran.bean.TranObjectType;
-import com.way.chat.common.util.Constants;
-import com.way.client.Client;
-import com.way.client.ClientOutputThread;
-import com.way.util.DialogFactory;
-import com.way.util.SharePreferenceUtil;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,45 +9,62 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.way.chat.common.bean.User;
+import com.way.chat.common.tran.bean.TranObject;
+import com.way.chat.common.tran.bean.TranObjectType;
+import com.way.chat.common.util.Constants;
+import com.way.client.Client;
+import com.way.client.ClientOutputThread;
+import com.way.util.DialogFactory;
+import com.way.util.SharePreferenceUtil;
+
 public class FriendMsg extends MyActivity {
-	private Button BtnAdd;
-	private Button BtnCancel;
+	
+	private Button BtnChat;
+	private Button BtnDelete;
 	private TextView nameView;
 	private TextView idView;
 	private TextView emailView;
 	private ImageView ImgView;
-	private TranObject msg;
+	private User user;
 	private MyApplication application;
 	private SharePreferenceUtil util;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friend_msg);
+		user = (User) getIntent().getSerializableExtra("user");
+		System.out.println(user);
 		application = (MyApplication) this.getApplicationContext();
-		BtnAdd = (Button) findViewById(R.id.button1);
-		BtnCancel = (Button) findViewById(R.id.button2);
+		BtnChat = (Button) findViewById(R.id.button2);
+		BtnDelete = (Button) findViewById(R.id.button1);
 		nameView = (TextView) findViewById(R.id.nameView);
 		idView = (TextView) findViewById(R.id.idView);
 		emailView = (TextView) findViewById(R.id.emailView);
-		
-		String ID =FriendMsg.this.getIntent().getStringExtra("ID");//获得陌生人ID
-		
-		msg = (TranObject) getIntent().getSerializableExtra(Constants.MSGKEY);
-		User i=(User)msg.getObject();
-		nameView.setText(i.getName());
-		idView.setText(i.getId()+" ");
-		emailView.setText(i.getEmail());
-		
+		nameView.setText(user.getName());
+		idView.setText(user.getId()+" ");
+		emailView.setText(user.getEmail());
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
-		BtnAdd.setOnClickListener(new Button.OnClickListener()
+//		submitCheck(user.getId());
+		BtnChat.setOnClickListener(new Button.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				submit();
+				Intent intent = new Intent(FriendMsg.this, ChatActivity.class);
+				intent.putExtra("user", user);
+				startActivity(intent);
+			}
+
+		});
+		BtnDelete.setOnClickListener(new Button.OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				submitDelete(user.getId());
 				Intent intent = new Intent();  
-                // 指定intent要启动的类  
                 intent.setClass(FriendMsg.this, FriendListActivity.class);   
                 startActivity(intent);
 			}
@@ -73,31 +80,50 @@ public class FriendMsg extends MyActivity {
 			mDialog.dismiss();
 			mDialog = null;
 		}
-		mDialog = DialogFactory.creatRequestDialog(this, "正在添加...");
+		mDialog = DialogFactory.creatRequestDialog(this, "正在删除...");
 		mDialog.show();
 	}
 	
-	private void submit() {
+	private void submitDelete(int id) {
 		showRequestDialog();
 			// 通过Socket验证信息
 		Client client = application.getClient();
 		ClientOutputThread out = client.getClientOutputThread();
-//				System.out.println("fdfgdfjh");
-		TranObject<User> o = new TranObject<User>(TranObjectType.FriendAdd);
+		TranObject<User> o = new TranObject<User>(TranObjectType.FriendDelete);
 		User u = new User();
-		User v = (User)msg.getObject();
-		u.setId(v.getId());
+		u.setId(id);
 		o.setFromUser(Integer.parseInt(util.getId()));
 		System.out.println(util.getId());
 	    o.setObject(u);
 		out.setMsg(o);
 		System.out.println(o);
-		Toast.makeText(getApplicationContext(), "添加成功", 0).show();
+		Toast.makeText(getApplicationContext(), "删除成功", 0).show();
+	}
+	
+	
+	private void submitCheck(int id) {
+		Client client = application.getClient();
+		ClientOutputThread out = client.getClientOutputThread();
+		TranObject<User> o = new TranObject<User>(TranObjectType.FriendCheck);
+		User u = new User();
+		u.setId(id);
+		o.setObject(u);
+		out.setMsg(o);
 	}
 
 	@Override
 	public void getMessage(TranObject msg) {
-		Toast.makeText(getApplicationContext(), "添加成功", 0).show();
-		
+		if (msg != null) {
+			System.out.println("Result:" + msg);
+			switch (msg.getType()) {
+			case FriendCheck:// LoginActivity只处理登录的消息
+				User friend = (User) msg.getObject();
+				System.out.println(friend);
+				break;
+			default:
+				break;
+			}
+		}
 	}
+
 }

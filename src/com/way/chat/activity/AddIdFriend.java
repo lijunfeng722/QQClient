@@ -107,7 +107,7 @@ public class AddIdFriend extends MyActivity {
 					
 					Intent intent = new Intent();  
 	                // 指定intent要启动的类  
-	                intent.setClass(AddIdFriend.this, FriendMsg.class);  
+	                intent.setClass(AddIdFriend.this, StrangerMsg.class);  
 	                intent.putExtra(Constants.MSGKEY, msg);
 	                //启动一个新的Activity  
 	                startActivity(intent); 
