@@ -111,7 +111,7 @@ public class AddIdFriend extends MyActivity {
 	                intent.putExtra(Constants.MSGKEY, msg);
 	                //启动一个新的Activity  
 	                startActivity(intent); 
-					
+	                finish();
 					
 				} 
 				break;

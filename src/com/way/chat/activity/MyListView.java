@@ -1,13 +1,7 @@
 package com.way.chat.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import com.way.util.MyDate;
-
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -20,9 +14,10 @@ import android.widget.BaseAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.way.util.MyDate;
 
 /**
  * 重写一个ListView,主要是添加一个下拉事件

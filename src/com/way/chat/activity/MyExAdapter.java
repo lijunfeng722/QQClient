@@ -9,21 +9,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.way.chat.common.bean.User;
-import com.way.chat.common.tran.bean.TranObject;
-import com.way.chat.common.tran.bean.TranObjectType;
-import com.way.chat.common.util.Constants;
-import com.way.client.Client;
-import com.way.client.ClientOutputThread;
+import com.way.chat.common.util.BitmapUtil;
 import com.way.util.GroupFriend;
-import com.way.util.MyDate;
 
 /**
  * 自定义ExpandableListView的适配器
@@ -31,16 +26,19 @@ import com.way.util.MyDate;
  * @author way
  * 
  */
-public class MyExAdapter extends BaseExpandableListAdapter {
-	/*private int[] imgs = { R.drawable.icon, R.drawable.f1, R.drawable.f2,
-			R.drawable.f3, R.drawable.f4, R.drawable.f5, R.drawable.f6,
-			R.drawable.f7, R.drawable.f8, R.drawable.f9 };// 头像资源数组
-			*/
-	private Bitmap  imgs;
+public class MyExAdapter extends BaseExpandableListAdapter
+{
+	/*
+	 * private int[] imgs = { R.drawable.icon, R.drawable.f1, R.drawable.f2,
+	 * R.drawable.f3, R.drawable.f4, R.drawable.f5, R.drawable.f6,
+	 * R.drawable.f7, R.drawable.f8, R.drawable.f9 };// 头像资源数组
+	 */
+	private Bitmap imgs;
 	private Context context;
 	private List<GroupFriend> group;// 传递过来的经过处理的总数据
 
-	public MyExAdapter(Context context, List<GroupFriend> group) {
+	public MyExAdapter(Context context, List<GroupFriend> group)
+	{
 		super();
 		this.context = context;
 		this.group = group;
@@ -48,8 +46,10 @@ public class MyExAdapter extends BaseExpandableListAdapter {
 
 	// 得到大组成员的view
 	public View getGroupView(int groupPosition, boolean isExpanded,
-			View convertView, ViewGroup parent) {
-		if (convertView == null) {
+			View convertView, ViewGroup parent)
+	{
+		if (convertView == null)
+		{
 			LayoutInflater inflater = LayoutInflater.from(context);
 			convertView = inflater.inflate(R.layout.member_listview, null);
 		}
@@ -68,24 +68,29 @@ public class MyExAdapter extends BaseExpandableListAdapter {
 	}
 
 	// 得到大组成员的id
-	public long getGroupId(int groupPosition) {
+	public long getGroupId(int groupPosition)
+	{
 		return groupPosition;
 	}
 
 	// 得到大组成员名称
-	public Object getGroup(int groupPosition) {
+	public Object getGroup(int groupPosition)
+	{
 		return group.get(groupPosition).getGroupName();
 	}
 
 	// 得到大组成员总数
-	public int getGroupCount() {
+	public int getGroupCount()
+	{
 		return group.size();
 	}
 
 	// 得到小组成员的view
 	public View getChildView(int groupPosition, int childPosition,
-			boolean isLastChild, View convertView, ViewGroup parent) {
-		if (convertView == null) {
+			boolean isLastChild, View convertView, ViewGroup parent)
+	{
+		if (convertView == null)
+		{
 			LayoutInflater inflater = LayoutInflater.from(context);
 			convertView = inflater.inflate(R.layout.item, null);
 		}
@@ -103,16 +108,18 @@ public class MyExAdapter extends BaseExpandableListAdapter {
 				+ "";
 		final String email = group.get(groupPosition).getChild(childPosition)
 				.getEmail();
-		imgs = (Bitmap) group.get(groupPosition).getChild(childPosition)
-				.getImg();
+		imgs = BitmapUtil.toRoundCorner((Bitmap) group.get(groupPosition)
+				.getChild(childPosition).getImg(), 3);
 		title.setText(name);// 大标题
 		title2.setText(id);// 小标题
-		Drawable drawable = new BitmapDrawable(imgs); 
+		Drawable drawable = new BitmapDrawable(imgs);
 		icon.setImageDrawable(drawable);
-		convertView.setOnClickListener(new OnClickListener() {
+		icon.setOnClickListener(new OnClickListener()
+		{
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(View v)
+			{
 				// 下面是切换到聊天界面处理
 				User u = new User();
 				u.setName(name);
@@ -126,21 +133,42 @@ public class MyExAdapter extends BaseExpandableListAdapter {
 
 			}
 		});
+		convertView.setOnClickListener(new OnClickListener()
+		{
+
+			@Override
+			public void onClick(View v)
+			{
+				// 下面是切换到聊天界面处理
+				User u = new User();
+				u.setName(name);
+				u.setId(Integer.parseInt(id));
+				u.setImg(imgs);
+				u.setEmail(email);
+				Intent intent = new Intent(context, ChatActivity.class);
+				intent.putExtra("user", u);
+				context.startActivity(intent);
+
+			}
+		});
 		return convertView;
 	}
-	
+
 	// 得到小组成员id
-	public long getChildId(int groupPosition, int childPosition) {
+	public long getChildId(int groupPosition, int childPosition)
+	{
 		return childPosition;
 	}
 
 	// 得到小组成员的名称
-	public Object getChild(int groupPosition, int childPosition) {
+	public Object getChild(int groupPosition, int childPosition)
+	{
 		return group.get(groupPosition).getChild(childPosition);
 	}
 
 	// 得到小组成员的数量
-	public int getChildrenCount(int groupPosition) {
+	public int getChildrenCount(int groupPosition)
+	{
 		return group.get(groupPosition).getChildSize();
 	}
 
@@ -151,12 +179,14 @@ public class MyExAdapter extends BaseExpandableListAdapter {
 	 * @return whether or not the same ID always refers to the same object
 	 * @see Adapter#hasStableIds()
 	 */
-	public boolean hasStableIds() {
+	public boolean hasStableIds()
+	{
 		return true;
 	}
 
 	// 得到小组成员是否被选择
-	public boolean isChildSelectable(int groupPosition, int childPosition) {
+	public boolean isChildSelectable(int groupPosition, int childPosition)
+	{
 		return true;
 	}
 
@@ -166,7 +196,8 @@ public class MyExAdapter extends BaseExpandableListAdapter {
 	 * @param group
 	 *            传递进来的新数据
 	 */
-	public void updata(List<GroupFriend> group) {
+	public void updata(List<GroupFriend> group)
+	{
 		this.group = null;
 		this.group = group;
 	}

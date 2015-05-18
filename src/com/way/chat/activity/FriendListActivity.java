@@ -37,6 +37,7 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -56,6 +57,7 @@ import com.way.chat.common.bean.TextMessage;
 import com.way.chat.common.bean.User;
 import com.way.chat.common.tran.bean.TranObject;
 import com.way.chat.common.tran.bean.TranObjectType;
+import com.way.chat.common.util.BitmapUtil;
 import com.way.chat.common.util.Constants;
 import com.way.client.ClientInputThread;
 import com.way.client.ClientOutputThread;
@@ -77,7 +79,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 
 	private static final int PAGE1 = 0;// 页面1
 	private static final int PAGE2 = 1;// 页面2
-	private static final int PAGE3 = 2;// 页面3
 	private List<GroupFriend> group;// 需要传递给适配器的数据
 	private String[] groupName =
 	{ "我的好友", "我的同学", "我的家人" };// 大组成员名
@@ -91,16 +92,14 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	private ListView mRecentListView;// 最近会话的listView
 	private int newNum = 0;
 
-	private ListView mGroupListView;// 群组listView
 
 	private ViewPager mPager;
 	private List<View> mListViews;// Tab页面
 	private LinearLayout layout_body_activity;
 	private ImageView img_recent_chat;// 最近会话
 	private ImageView img_friend_list;// 好友列表
-	private ImageView img_group_friend;// 群组
 
-	private ImageView myHeadImage;// 头像
+	private ImageButton myHeadImage;// 头像
 	private TextView myName;// 名字
 
 	private ImageView cursor;// 标题背景图片
@@ -218,16 +217,16 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	 */
 	private void initImageView()
 	{
-		cursor = (ImageView) findViewById(R.id.tab2_bg);
+		cursor = (ImageView) findViewById(R.id.tab_bg);
 		bmpW = BitmapFactory.decodeResource(getResources(),
 				R.drawable.topbar_select).getWidth();// 获取图片宽度
 		DisplayMetrics dm = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(dm);
 		int screenW = dm.widthPixels;// 获取分辨率宽度
 		// System.out.println("屏幕宽度:" + screenW);
-		offset = (screenW / 3 - bmpW) / 2;// 计算偏移量:屏幕宽度/3，平分为3分，如果是3个view的话，再减去图片宽度，因为图片居中，所以要得到两变剩下的空隙需要再除以2
+		offset = (screenW / 2 - bmpW) / 2;// 计算偏移量:屏幕宽度/3，平分为3分，如果是3个view的话，再减去图片宽度，因为图片居中，所以要得到两变剩下的空隙需要再除以2
 		Matrix matrix = new Matrix();
-		matrix.postTranslate(offset * 3 + bmpW, 0);// 初始化位置
+		matrix.postTranslate(screenW / 2 + bmpW, 0);// 初始化位置
 		cursor.setImageMatrix(matrix);// 设置动画初始位置
 	}
 
@@ -240,15 +239,13 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 		img_recent_chat.setOnClickListener(this);
 		img_friend_list = (ImageView) findViewById(R.id.tab2);
 		img_friend_list.setOnClickListener(this);
-		img_group_friend = (ImageView) findViewById(R.id.tab3);
-		img_group_friend.setOnClickListener(this);
 
-		myHeadImage = (ImageView) findViewById(R.id.friend_list_myImg);
+		myHeadImage = (ImageButton) findViewById(R.id.friend_list_myImg);
 		myName = (TextView) findViewById(R.id.friend_list_myName);
 
-		cursor = (ImageView) findViewById(R.id.tab2_bg);
+		cursor = (ImageView) findViewById(R.id.tab_bg);
 
-		imgs=(Bitmap) list.get(0).getImg();
+		imgs=BitmapUtil.toRoundCorner((Bitmap) list.get(0).getImg(),2);
 		Drawable drawable = new BitmapDrawable(imgs); 
 		myHeadImage.setImageDrawable(drawable);
 
@@ -260,10 +257,8 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View lay1 = inflater.inflate(R.layout.tab1, null);
 		View lay2 = inflater.inflate(R.layout.tab2, null);
-		View lay3 = inflater.inflate(R.layout.tab3, null);
 		mListViews.add(lay1);
 		mListViews.add(lay2);
-		mListViews.add(lay3);
 		mPager.setAdapter(new MyPagerAdapter(mListViews));
 		mPager.setCurrentItem(PAGE2);
 		mPager.setOnPageChangeListener(new MyOnPageChangeListener());
@@ -295,16 +290,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 		myListView.setFocusable(true);// 聚焦才可以下拉刷新
 		myListView.setonRefreshListener(new MyRefreshListener());
 
-		// 下面是群组界面处理
-		mGroupListView = (ListView) lay3.findViewById(R.id.tab3_listView);
-		List<GroupEntity> groupList = new ArrayList<GroupEntity>();
-		GroupEntity entity = new GroupEntity(0, "C175地带", "怀念高中生活...");
-		GroupEntity entity2 = new GroupEntity(0, "Android开发",
-				"爱生活...爱Android...");
-		groupList.add(entity);
-		groupList.add(entity2);
-		GroupAdapter adapter = new GroupAdapter(this, groupList);
-		mGroupListView.setAdapter(adapter);
 	}
 
 	@Override
@@ -317,9 +302,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 			break;
 		case R.id.tab2:
 			mPager.setCurrentItem(PAGE2);// 点击页面1
-			break;
-		case R.id.tab3:
-			mPager.setCurrentItem(PAGE3);// 点击页面1
 			break;
 		default:
 			break;
@@ -482,28 +464,13 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 				if (currentIndex == PAGE2)
 				{// 如果之前显示的是页卡2
 					animation = new TranslateAnimation(0, -one, 0, 0);
-				} else if (currentIndex == PAGE3)
-				{// 如果之前显示的是页卡3
-					animation = new TranslateAnimation(one, -one, 0, 0);
-				}
+				} 
 				break;
 			case PAGE2:// 切换到页卡2
 				if (currentIndex == PAGE1)
 				{// 如果之前显示的是页卡1
 					animation = new TranslateAnimation(-one, 0, 0, 0);
-				} else if (currentIndex == PAGE3)
-				{// 如果之前显示的是页卡3
-					animation = new TranslateAnimation(one, 0, 0, 0);
-				}
-				break;
-			case PAGE3:// 切换到页卡3
-				if (currentIndex == PAGE1)
-				{// 如果之前显示的是页卡1
-					animation = new TranslateAnimation(-one, one, 0, 0);
-				} else if (currentIndex == PAGE2)
-				{// 如果之前显示的是页卡2
-					animation = new TranslateAnimation(0, one, 0, 0);
-				}
+				} 
 				break;
 			default:
 				break;

@@ -55,6 +55,7 @@ public class FriendMsg extends MyActivity {
 				Intent intent = new Intent(FriendMsg.this, ChatActivity.class);
 				intent.putExtra("user", user);
 				startActivity(intent);
+				finish();
 			}
 
 		});
