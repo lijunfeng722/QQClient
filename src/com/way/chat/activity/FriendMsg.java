@@ -18,8 +18,9 @@ import com.way.client.ClientOutputThread;
 import com.way.util.DialogFactory;
 import com.way.util.SharePreferenceUtil;
 
-public class FriendMsg extends MyActivity {
-	
+public class FriendMsg extends MyActivity
+{
+
 	private Button BtnChat;
 	private Button BtnDelete;
 	private TextView nameView;
@@ -29,13 +30,13 @@ public class FriendMsg extends MyActivity {
 	private User user;
 	private MyApplication application;
 	private SharePreferenceUtil util;
-	
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friend_msg);
 		user = (User) getIntent().getSerializableExtra("user");
-		System.out.println(user);
 		application = (MyApplication) this.getApplicationContext();
 		BtnChat = (Button) findViewById(R.id.button2);
 		BtnDelete = (Button) findViewById(R.id.button1);
@@ -43,10 +44,10 @@ public class FriendMsg extends MyActivity {
 		idView = (TextView) findViewById(R.id.idView);
 		emailView = (TextView) findViewById(R.id.emailView);
 		nameView.setText(user.getName());
-		idView.setText(user.getId()+" ");
+		idView.setText(user.getId() + " ");
 		emailView.setText(user.getEmail());
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
-//		submitCheck(user.getId());
+		// submitCheck(user.getId());
 		BtnChat.setOnClickListener(new Button.OnClickListener()
 		{
 			@Override
@@ -55,7 +56,6 @@ public class FriendMsg extends MyActivity {
 				Intent intent = new Intent(FriendMsg.this, ChatActivity.class);
 				intent.putExtra("user", user);
 				startActivity(intent);
-				finish();
 			}
 
 		});
@@ -65,29 +65,32 @@ public class FriendMsg extends MyActivity {
 			public void onClick(View v)
 			{
 				submitDelete(user.getId());
-				Intent intent = new Intent();  
-                intent.setClass(FriendMsg.this, FriendListActivity.class);   
-                startActivity(intent);
+				Intent intent = new Intent();
+				intent.setClass(FriendMsg.this, FriendListActivity.class);
+				startActivity(intent);
 			}
 
 		});
-	
+
 	}
-	
+
 	private Dialog mDialog = null;
-	
-	private void showRequestDialog() {
-		if (mDialog != null) {
+
+	private void showRequestDialog()
+	{
+		if (mDialog != null)
+		{
 			mDialog.dismiss();
 			mDialog = null;
 		}
 		mDialog = DialogFactory.creatRequestDialog(this, "正在删除...");
 		mDialog.show();
 	}
-	
-	private void submitDelete(int id) {
+
+	private void submitDelete(int id)
+	{
 		showRequestDialog();
-			// 通过Socket验证信息
+		// 通过Socket验证信息
 		Client client = application.getClient();
 		ClientOutputThread out = client.getClientOutputThread();
 		TranObject<User> o = new TranObject<User>(TranObjectType.FriendDelete);
@@ -95,14 +98,16 @@ public class FriendMsg extends MyActivity {
 		u.setId(id);
 		o.setFromUser(Integer.parseInt(util.getId()));
 		System.out.println(util.getId());
-	    o.setObject(u);
+		o.setObject(u);
 		out.setMsg(o);
-		System.out.println(o);
 		Toast.makeText(getApplicationContext(), "删除成功", 0).show();
+		
+		setResult(-1, getIntent());
+		finish();
 	}
-	
-	
-	private void submitCheck(int id) {
+
+	private void submitCheck(int id)
+	{
 		Client client = application.getClient();
 		ClientOutputThread out = client.getClientOutputThread();
 		TranObject<User> o = new TranObject<User>(TranObjectType.FriendCheck);
@@ -113,18 +118,18 @@ public class FriendMsg extends MyActivity {
 	}
 
 	@Override
-	public void getMessage(TranObject msg) {
-		if (msg != null) {
-			System.out.println("Result:" + msg);
-			switch (msg.getType()) {
-			case FriendCheck:// LoginActivity只处理登录的消息
-				User friend = (User) msg.getObject();
-				System.out.println(friend);
-				break;
-			default:
-				break;
-			}
+	public void getMessage(TranObject msg)
+	{
+		System.out.println("Result:" + msg.getType());
+		switch (msg.getType())
+		{
+		case FriendCheck:// LoginActivity只处理登录的消息
+			User friend = (User) msg.getObject();
+			System.out.println(friend.getId());
+			break;
+		default:
+			break;
 		}
+		finish();
 	}
-
 }

@@ -99,7 +99,7 @@ public class MyExAdapter extends BaseExpandableListAdapter
 		final TextView title2 = (TextView) convertView
 				.findViewById(R.id.id_item);// 显示用户id
 		ImageView icon = (ImageView) convertView
-				.findViewById(R.id.imageView_item);// 显示用户头像，其实还可以判断是否在线，选择黑白和彩色头像，我这里未处理，没资源，呵呵
+				.findViewById(R.id.imageView_item);// 显示用户头像
 
 		final String name = group.get(groupPosition).getChild(childPosition)
 				.getName();

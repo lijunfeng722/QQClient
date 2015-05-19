@@ -19,7 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class StrangerMsg extends MyActivity {
+public class StrangerMsg extends MyActivity
+{
 	private Button BtnAdd;
 	private Button BtnCancel;
 	private TextView nameView;
@@ -29,9 +30,11 @@ public class StrangerMsg extends MyActivity {
 	private TranObject msg;
 	private MyApplication application;
 	private SharePreferenceUtil util;
+	private User newFriend;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.stranger_msg);
 		application = (MyApplication) this.getApplicationContext();
@@ -40,15 +43,15 @@ public class StrangerMsg extends MyActivity {
 		nameView = (TextView) findViewById(R.id.nameView);
 		idView = (TextView) findViewById(R.id.idView);
 		emailView = (TextView) findViewById(R.id.emailView);
-		
-		String ID =StrangerMsg.this.getIntent().getStringExtra("ID");//获得陌生人ID
-		
+
+		String ID = StrangerMsg.this.getIntent().getStringExtra("ID");// 获得陌生人ID
+
 		msg = (TranObject) getIntent().getSerializableExtra(Constants.MSGKEY);
-		User i=(User)msg.getObject();
-		nameView.setText(i.getName());
-		idView.setText(i.getId()+" ");
-		emailView.setText(i.getEmail());
-		
+		newFriend = (User) msg.getObject();
+		nameView.setText(newFriend.getName());
+		idView.setText(newFriend.getId() + " ");
+		emailView.setText(newFriend.getEmail());
+
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
 		BtnAdd.setOnClickListener(new Button.OnClickListener()
 		{
@@ -56,48 +59,51 @@ public class StrangerMsg extends MyActivity {
 			public void onClick(View v)
 			{
 				submit();
-				Intent intent = new Intent();  
-                // 指定intent要启动的类  
-                intent.setClass(StrangerMsg.this, FriendListActivity.class);   
-                startActivity(intent);
+				Intent intent = new Intent();
+				// 指定intent要启动的类
+				intent.setClass(StrangerMsg.this, FriendListActivity.class);
+				intent.putExtra("From","StrangerMsg");
+				intent.putExtra("newFriend", newFriend);
+				startActivity(intent);
 			}
 
 		});
-	
+
 	}
-	
+
 	private Dialog mDialog = null;
-	
-	private void showRequestDialog() {
-		if (mDialog != null) {
+
+	private void showRequestDialog()
+	{
+		if (mDialog != null)
+		{
 			mDialog.dismiss();
 			mDialog = null;
 		}
 		mDialog = DialogFactory.creatRequestDialog(this, "正在添加...");
 		mDialog.show();
 	}
-	
-	private void submit() {
+
+	private void submit()
+	{
 		showRequestDialog();
-			// 通过Socket验证信息
+		// 通过Socket验证信息
 		Client client = application.getClient();
 		ClientOutputThread out = client.getClientOutputThread();
-//				System.out.println("fdfgdfjh");
+		// System.out.println("fdfgdfjh");
 		TranObject<User> o = new TranObject<User>(TranObjectType.FriendAdd);
 		User u = new User();
-		User v = (User)msg.getObject();
+		User v = (User) msg.getObject();
 		u.setId(v.getId());
 		o.setFromUser(Integer.parseInt(util.getId()));
-		System.out.println(util.getId());
-	    o.setObject(u);
+		o.setObject(u);
 		out.setMsg(o);
-		System.out.println(o);
-		Toast.makeText(getApplicationContext(), "添加成功", 0).show();
 	}
 
 	@Override
-	public void getMessage(TranObject msg) {
+	public void getMessage(TranObject msg)
+	{
 		Toast.makeText(getApplicationContext(), "添加成功", 0).show();
-		
+
 	}
 }

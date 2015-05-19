@@ -2,9 +2,6 @@
 <resources>
     <string name="app_name">QQ</string>
     <string name="app_display_name">手机QQ2012</string>
-    <string name="group_online">在线好友</string>
-    <string name="group_stranger">陌生人</string>
-    <string name="group_blcak_list">黑名单</string>
     <string name="run_bg_ticker">手机QQ正在后台运行</string>
     <string name="refreshing">正在加载</string>
     <string name="refresh_failed">刷新失败！</string>
@@ -28,28 +25,14 @@
     <string name="manager_string">管理员</string>
     <string name="accept_join_troop">通过了您的加群请求</string>
     <string name="refuse_join_troop">拒绝了您的加群请求</string>
-    <string name="apply_join_troop">申请加入群</string>
-    <string name="invite_join_troop">邀请您加入群</string>
-    <string name="accept_invite_troop">同意加入群</string>
-    <string name="refuse_invite_troop">拒绝加入群</string>
     <string name="find">查找</string>
-    <string name="troop_memberlist">查看群成员</string>
-    <string name="troop_member">群成员</string>
-    <string name="troop_member_management">群成员管理</string>
     <string name="select_friends">选择联系人</string>
     <string name="manage_btn">管理</string>
-    <string name="kick_out_confirm">确定要将该用户从本群中移除？</string>
-    <string name="alert_not_troop_member">您已不是该群成员</string>
-    <string name="alert_troop_not_exist">该群已解散</string>
-    <string name="friend_already_troop_member">该用户已经是该群成员</string>
     <string name="request_prompt">正在寻找...</string>
-    <string name="video_prompt">想视频通话？先互加为好友吧。</string>
-    <string name="video_sdk_not_support">系统版本过低无法启用视频通话，请升级系统后再试</string>
-    <string name="video_sdk_not_support_msg">对方发来视频请求，由于您的系统版本过低无法建立视频通话</string>
     <string name="system_message">系统消息</string>
     <string name="verify_toast">验证码错误,请重新输入!</string>
     <string name="to_nearby">去看看附近的人</string>
-    <string name="login_title">设置QQ帐号</string>
+    <string name="login_title">设置帐号</string>
     <string name="account_setting">状态管理</string>
     <string name="account_setting2">帐号设置</string>
     <string name="login">登 录</string>
@@ -59,8 +42,6 @@
     <string name="timeout_prompt">操作超时！</string>
     <string name="loginFailed">登录失败，请稍后重试</string>
     <string name="netFailed">连网失败，请检查网络</string>
-    <string name="gray_title">内测版本</string>
-    <string name="gray_prompt">感谢您对手机QQ3.0内测的关注，很抱歉您的账号不在本次测试范围之内，请访问<a href="http://a.myapp.com/g/s?aid=newdetails_a&amp;softId=45592">官方网站</a>下载正式版本使用。</string>
     <string name="net_timeout_check_prompt">连网超时，请检查网络设置！</string>
     <string name="null_account_prompt">请输入QQ号</string>
     <string name="null_search_troop">请输入群号码</string>
@@ -388,10 +369,6 @@
     <string name="discuss_ok1">确认</string>
     <string name="discuss_cancel1">跳过</string>
     <string name="discuss_friend">我的好友</string>
-    <string name="discuss_member">话题小组成员</string>
-    <string name="discuss_takename">给话题小组起个名字吧</string>
-    <string name="discuss_create">创建话题小组</string>
-    <string name="discuss_management_title">圈子管理</string>
     <string name="discuss_group_name">小组名:</string>
     <string name="discuss_modify_group_name">修改小组名</string>
     <string name="discuss_exit">退出小组</string>

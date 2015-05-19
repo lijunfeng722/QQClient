@@ -41,6 +41,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,19 +80,19 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 
 	private static final int PAGE1 = 0;// 页面1
 	private static final int PAGE2 = 1;// 页面2
-	private List<GroupFriend> group;// 需要传递给适配器的数据
+	// private List<GroupFriend> group;// 需要传递给适配器的数据
 	private String[] groupName =
 	{ "我的好友", "我的同学", "我的家人" };// 大组成员名
 	private SharePreferenceUtil util;
 	private UserDB userDB;// 保存好友列表数据库对象
 	private MessageDB messageDB;// 消息数据库对象
 
-	private MyListView myListView;// 好友列表自定义listView
-	private MyExAdapter myExAdapter;// 好
+	// private MyListView myListView;// 好友列表自定义listView
+	// private MyExAdapter myExAdapter;// 好
+	private FriendListAdapter myExAdapter;// 好
 
 	private ListView mRecentListView;// 最近会话的listView
 	private int newNum = 0;
-
 
 	private ViewPager mPager;
 	private List<View> mListViews;// Tab页面
@@ -111,11 +112,11 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	private TranObject msg;
 	private List<User> list;
 	private MenuInflater mi;// 菜单
-	/*private int[] imgs =
-	{ R.drawable.icon, R.drawable.f1, R.drawable.f2, R.drawable.f3,
-			R.drawable.f4, R.drawable.f5, R.drawable.f6, R.drawable.f7,
-			R.drawable.f8, R.drawable.f9 };// 头像资源
-			*/
+	/*
+	 * private int[] imgs = { R.drawable.icon, R.drawable.f1, R.drawable.f2,
+	 * R.drawable.f3, R.drawable.f4, R.drawable.f5, R.drawable.f6,
+	 * R.drawable.f7, R.drawable.f8, R.drawable.f9 };// 头像资源
+	 */
 	Bitmap imgs;
 	private MyApplication application;
 
@@ -125,6 +126,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	private final int list_request = 0;
 	private final int poi_create_request = 1;
 	private final int poi_update_request = 2;
+	private ListView listVw = null;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -142,7 +144,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 		LocationClientOption option = new LocationClientOption();
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 设置定位模式
 		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度,默认值gcj02
-		option.setScanSpan(1000*60);// 设置发起定位请求的间隔时间为60s
+		option.setScanSpan(1000 * 60);// 设置发起定位请求的间隔时间为60s
 		option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
 		mLocationClient.setLocOption(option);
 		new MyThread(mLocationClient).start();
@@ -178,38 +180,24 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 		messageDB = new MessageDB(this);// 本地消息数据库
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
 
-		msg = (TranObject) getIntent().getSerializableExtra(Constants.MSGKEY);// 从intent中取出消息对象
-		if (msg == null)
+		Intent it = getIntent();
+		
+		if (it.getStringExtra("From")==null)
 		{// 如果为空，说明是从后台切换过来的，需要从数据库中读取好友列表信息
 			list = userDB.getUser();
-		} else
+		} else if ("StrangerMsg".equals(it.getStringExtra("From")))
+		{
+			User newfriend = (User)it.getSerializableExtra("newFriend");
+			list = userDB.getUser();
+			list.add(newfriend);
+			userDB.updateUser(list);
+		} else if ("LoginActy".equals(it.getStringExtra("From")))
 		{// 如果是登录界面切换过来的，就把好友列表信息保存到数据库
+			msg = (TranObject)  it.getSerializableExtra(Constants.MSGKEY);// 从intent中取出消息对象
 			list = (List<User>) msg.getObject();
 			userDB.updateUser(list);
 		}
-		initListViewData(list);
-	}
 
-	/**
-	 * 处理服务器传递过来的用户数组数据，
-	 * 
-	 * @param list
-	 *            从服务器获取的用户数组
-	 */
-	private void initListViewData(List<User> list)
-	{
-		group = new ArrayList<GroupFriend>();// 实例化
-		for (int i = 0; i < groupName.length; ++i)
-		{// 根据大组的数量，循环给各大组分配成员
-			List<User> child = new ArrayList<User>();// 装小组成员的list
-			GroupFriend groupInfo = new GroupFriend(groupName[i], child);// 我们自定义的大组成员对象
-			for (User u : list)
-			{
-				if (u.getGroup() == i)// 判断一下是属于哪个大组
-					child.add(u);
-			}
-			group.add(groupInfo);// 把自定义大组成员对象放入一个list中，传递给适配器
-		}
 	}
 
 	/**
@@ -245,8 +233,8 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 
 		cursor = (ImageView) findViewById(R.id.tab_bg);
 
-		imgs=BitmapUtil.toRoundCorner((Bitmap) list.get(0).getImg(),2);
-		Drawable drawable = new BitmapDrawable(imgs); 
+		imgs = BitmapUtil.toRoundCorner((Bitmap) list.get(0).getImg(), 2);
+		Drawable drawable = new BitmapDrawable(imgs);
 		myHeadImage.setImageDrawable(drawable);
 
 		myName.setText(list.get(0).getName());
@@ -274,21 +262,14 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 
 		});
 
-		
 		// 下面是最近会话界面处理
 		mRecentListView = (ListView) lay1.findViewById(R.id.tab1_listView);
-		// mRecentAdapter = new RecentChatAdapter(FriendListActivity.this,
-		// application.getmRecentList());// 从全局变量中获取最近聊天对象数组
 		mRecentListView.setAdapter(application.getmRecentAdapter());// 先设置空对象，要么从数据库中读出
 
 		// 下面是处理好友列表界面处理
-		myListView = (MyListView) lay2.findViewById(R.id.tab2_listView);
-		myExAdapter = new MyExAdapter(this, group);
-		myListView.setAdapter(myExAdapter);
-		myListView.setGroupIndicator(null);// 不设置大组指示器图标，因为我们自定义设置了
-		myListView.setDivider(null);// 设置图片可拉伸的
-		myListView.setFocusable(true);// 聚焦才可以下拉刷新
-		myListView.setonRefreshListener(new MyRefreshListener());
+		listVw = (ListView) lay2.findViewById(R.id.friend_listVw);
+		myExAdapter = new FriendListAdapter(this, list);
+		listVw.setAdapter(myExAdapter);
 
 	}
 
@@ -363,7 +344,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 						})
 				.setNegativeButton("摇一摇", new DialogInterface.OnClickListener()
 				{
-
 					@Override
 					public void onClick(DialogInterface dialog, int which)
 					{
@@ -408,7 +388,8 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 			String message = tm.getMessage();
 			ChatMsgEntity entity = new ChatMsgEntity("", MyDate.getDateEN(),
 					message, null, true, Integer.parseInt(util.getId()));// 收到的消息
-			messageDB.saveMsg(msg.getFromUser(), entity, Integer.parseInt(util.getId()));// 保存到数据库
+			messageDB.saveMsg(msg.getFromUser(), entity,
+					Integer.parseInt(util.getId()));// 保存到数据库
 			Toast.makeText(FriendListActivity.this,
 					"亲！新消息哦 " + msg.getFromUser() + ":" + message, 0).show();// 提示用户
 			MediaPlayer.create(this, R.raw.msg).start();// 声音提示
@@ -464,13 +445,13 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 				if (currentIndex == PAGE2)
 				{// 如果之前显示的是页卡2
 					animation = new TranslateAnimation(0, -one, 0, 0);
-				} 
+				}
 				break;
 			case PAGE2:// 切换到页卡2
 				if (currentIndex == PAGE1)
 				{// 如果之前显示的是页卡1
 					animation = new TranslateAnimation(-one, 0, 0, 0);
-				} 
+				}
 				break;
 			default:
 				break;
@@ -533,8 +514,8 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 									if (list.size() > 0)
 									{
 										// System.out.println("Friend:" + list);
-										initListViewData(list);
-										myExAdapter.updata(group);
+										// myExAdapter.updata(group);
+										myExAdapter.updata(list);
 										userDB.updateUser(list);// 保存到数据库
 									}
 								}
@@ -548,7 +529,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 				protected void onPostExecute(Void result)
 				{
 					myExAdapter.notifyDataSetChanged();
-					myListView.onRefreshComplete();
+					// myListView.onRefreshComplete();
 					Toast.makeText(FriendListActivity.this, "刷新成功", 0).show();
 				}
 
@@ -678,5 +659,21 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 			mLocationClient.start();
 			super.run();
 		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		System.out.println("requestCode=" + requestCode);
+		System.out.println("resultCode=" + resultCode);
+		switch (resultCode)
+		{
+		case -1:// 删除好友
+			User user = (User) data.getSerializableExtra("user");
+			list.remove(user);
+			break;
+
+		}
+		super.onActivityResult(requestCode, resultCode, data);
 	}
 }

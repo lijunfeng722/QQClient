@@ -215,6 +215,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 					Intent i = new Intent(LoginActivity.this,
 							FriendListActivity.class);
 					i.putExtra(Constants.MSGKEY, msg);
+					i.putExtra("From", "LoginActy");
 					startActivity(i);
 
 					if (mDialog.isShowing())

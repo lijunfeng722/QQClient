@@ -113,8 +113,7 @@ public class User implements Serializable {
 	public boolean equals(Object o) {
 		if (o instanceof User) {
 			User user = (User) o;
-			if (user.getId() == id && user.getIp().equals(ip)
-					&& user.getPort() == port) {
+			if (user.getId() == id ) {
 				return true;
 			}
 		}
