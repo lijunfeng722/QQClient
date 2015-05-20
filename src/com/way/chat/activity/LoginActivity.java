@@ -28,10 +28,7 @@ import com.way.chat.common.tran.bean.TranObjectType;
 import com.way.chat.common.util.Constants;
 import com.way.client.Client;
 import com.way.client.ClientOutputThread;
-import com.way.util.DialogFactory;
-import com.way.util.Encode;
-import com.way.util.SharePreferenceUtil;
-import com.way.util.UserDB;
+import com.way.util.*;
 
 /**
  * 登录
@@ -46,11 +43,11 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	private CheckBox mAutoSavePassword;
 	private MyApplication application;
 
-	private View mMoreView;// “更多登录选项”的view
+/*	private View mMoreView;// “更多登录选项”的view
 	private ImageView mMoreImage;// “更多登录选项”的箭头图片
-	private View mMoreMenuView;// “更多登录选项”中的内容view
+	private View mMoreMenuView;// “更多登录选项”中的内容view*/
 	private MenuInflater mi;// 菜单
-	private boolean mShowMenu = false;// “更多登录选项”的内容是否显示
+//	private boolean mShowMenu = false;// “更多登录选项”的内容是否显示/
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,10 +70,10 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 
 	public void initView() {
 		mAutoSavePassword = (CheckBox) findViewById(R.id.auto_save_password);
-		mMoreView = findViewById(R.id.more);
+/*		mMoreView = findViewById(R.id.more);
 		mMoreMenuView = findViewById(R.id.moremenu);
 		mMoreImage = (ImageView) findViewById(R.id.more_image);
-		mMoreView.setOnClickListener(this);
+		mMoreView.setOnClickListener(this);*/
 
 		mBtnRegister = (Button) findViewById(R.id.regist_btn);
 		mBtnRegister.setOnClickListener(this);
@@ -99,7 +96,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	 * 
 	 * @param bShow
 	 *            是否显示
-	 */
+
 	public void showMoreView(boolean bShow) {
 		if (bShow) {
 			mMoreMenuView.setVisibility(View.GONE);
@@ -110,7 +107,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 			mMoreImage.setImageResource(R.drawable.login_more);
 			mShowMenu = false;
 		}
-	}
+	}*/
 
 	/**
 	 * 处理点击事件
@@ -118,9 +115,9 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.more:
+/*		case R.id.more:
 			showMoreView(!mShowMenu);
-			break;
+			break;*/
 		case R.id.regist_btn:
 			goRegisterActivity();
 			break;
@@ -137,8 +134,8 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	 */
 	public void goRegisterActivity() {
 		Intent intent = new Intent();
-//		intent.setClass(this, Photo.class);
-		intent.setClass(this, RegisterActivity.class);
+		intent.setClass(this, Photo.class);
+//		intent.setClass(this, RegisterActivity.class);
 		startActivity(intent);
 	}
 
@@ -207,7 +204,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 					util.setPasswd(mPassword.getText().toString());
 					util.setEmail(list.get(0).getEmail());
 					util.setName(list.get(0).getName());
-		//			util.setImg(list.get(0).getImg());
+//					util.setImg(list.get(0).getImg());
 
 					UserDB db = new UserDB(LoginActivity.this);
 					db.addUser(list);
@@ -215,7 +212,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 					Intent i = new Intent(LoginActivity.this,
 							FriendListActivity.class);
 					i.putExtra(Constants.MSGKEY, msg);
-					i.putExtra("From", "LoginActy");
+					i.putExtra("From","LoginActy" );
 					startActivity(i);
 
 					if (mDialog.isShowing())

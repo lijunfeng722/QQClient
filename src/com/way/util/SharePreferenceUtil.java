@@ -55,6 +55,14 @@ public class SharePreferenceUtil {
 	}
 
 	// 用户自己的头像
+	public Integer getImg() {
+		return sp.getInt("img", 0);
+	}
+
+	public void setImg(int i) {
+		editor.putInt("img", i);
+		editor.commit();
+	}
 
 	// ip
 	public void setIp(String ip) {
