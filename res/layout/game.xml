@@ -9,14 +9,14 @@
     <RelativeLayout
         android:id="@+id/titlebar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/title_bar"
+        android:layout_height="60dp"
+        android:background="@color/blue_title"
         android:orientation="vertical" >
 
         <Button
             android:id="@+id/back_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dip"
             android:background="@drawable/return_btn_back"

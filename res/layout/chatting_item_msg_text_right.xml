@@ -42,6 +42,9 @@
             android:gravity="left|center"
             android:lineSpacingExtra="2dp"
             android:minHeight="50dp"
+            android:minWidth="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textColor="#ff000000"
             android:textSize="15sp" />
 

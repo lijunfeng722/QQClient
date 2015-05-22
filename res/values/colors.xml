@@ -140,6 +140,7 @@
     <color name="setting_bg">#ffe3e6e8</color>
     <color name="green">#33cc66</color>
     <color name="blue_title">#330099</color>
-    <color name="pressed">#7D26CD</color>
+    <color name="purple_title">#7D26CD</color>
+    <color name="gray">#CCCCCC</color>
 
 </resources>

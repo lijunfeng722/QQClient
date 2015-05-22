@@ -81,8 +81,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 	private static final int PAGE1 = 0;// 页面1
 	private static final int PAGE2 = 1;// 页面2
 	// private List<GroupFriend> group;// 需要传递给适配器的数据
-	private String[] groupName =
-	{ "我的好友", "我的同学", "我的家人" };// 大组成员名
 	private SharePreferenceUtil util;
 	private UserDB userDB;// 保存好友列表数据库对象
 	private MessageDB messageDB;// 消息数据库对象

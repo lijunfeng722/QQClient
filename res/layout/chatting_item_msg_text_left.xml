@@ -34,9 +34,12 @@
             android:id="@+id/tv_chatcontent"
             style="@style/chat_content_date_style"
             android:layout_width="wrap_content"
+            android:minWidth="40dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/iv_userhead"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:background="@drawable/chatfrom_bg" />
 
     </RelativeLayout>
