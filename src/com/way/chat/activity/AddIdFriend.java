@@ -1,6 +1,11 @@
 package com.way.chat.activity;
 
-import java.util.List;
+import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.way.chat.common.bean.User;
 import com.way.chat.common.tran.bean.TranObject;
@@ -9,23 +14,10 @@ import com.way.chat.common.util.Constants;
 import com.way.client.Client;
 import com.way.client.ClientOutputThread;
 import com.way.util.DialogFactory;
-import com.way.util.Encode;
-import com.way.util.SharePreferenceUtil;
-import com.way.util.UserDB;
-
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 public class AddIdFriend extends MyActivity {
 	private EditText mAccounts;
-	private Button mBtnLogin;
+	private Button addBtn;
 	private MyApplication application;
 	
 	@Override
@@ -33,9 +25,9 @@ public class AddIdFriend extends MyActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.friend_add);
 		application = (MyApplication) this.getApplicationContext();
-		mAccounts = (EditText) findViewById(R.id.editText1);
-		mBtnLogin = (Button) findViewById(R.id.button1);
-		mBtnLogin.setOnClickListener(new Button.OnClickListener()
+		mAccounts = (EditText) findViewById(R.id.addIdTvInFADD);
+		addBtn = (Button) findViewById(R.id.addBtnInFADD);
+		addBtn.setOnClickListener(new Button.OnClickListener()
 		{
 			@Override
 			public void onClick(View v)

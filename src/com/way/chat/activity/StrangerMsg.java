@@ -38,11 +38,11 @@ public class StrangerMsg extends MyActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.stranger_msg);
 		application = (MyApplication) this.getApplicationContext();
-		BtnAdd = (Button) findViewById(R.id.button1);
-		BtnCancel = (Button) findViewById(R.id.button2);
-		nameView = (TextView) findViewById(R.id.nameView);
-		idView = (TextView) findViewById(R.id.idView);
-		emailView = (TextView) findViewById(R.id.emailView);
+		BtnAdd = (Button) findViewById(R.id.addBtnInSMSG);
+		BtnCancel = (Button) findViewById(R.id.backBtnInSMSG);
+		nameView = (TextView) findViewById(R.id.nameTvInSMSG);
+		idView = (TextView) findViewById(R.id.idTvInSMSG);
+		emailView = (TextView) findViewById(R.id.emailTvInSMSG);
 
 		String ID = StrangerMsg.this.getIntent().getStringExtra("ID");// 获得陌生人ID
 
@@ -67,6 +67,16 @@ public class StrangerMsg extends MyActivity
 				startActivity(intent);
 			}
 
+		});
+		
+		BtnCancel.setOnClickListener(new Button.OnClickListener()
+		{
+			
+			@Override
+			public void onClick(View v)
+			{
+				finish();
+			}
 		});
 
 	}
@@ -104,6 +114,6 @@ public class StrangerMsg extends MyActivity
 	public void getMessage(TranObject msg)
 	{
 		Toast.makeText(getApplicationContext(), "添加成功", 0).show();
-
+		finish();
 	}
 }

@@ -21,7 +21,6 @@
             android:layout_marginLeft="10dip"
             android:background="@drawable/return_btn_back"
             android:gravity="center_horizontal|center_vertical"
-            android:text="@string/return_txt"
             android:textColor="#ffffff"
             android:textSize="16sp" />
 
@@ -36,15 +35,18 @@
 
         <Button
             android:id="@+id/start_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/back_btn"
             android:layout_centerVertical="true"
+            android:layout_alignTop="@+id/back_btn"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/yuanjiaojuxing_green"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/start_txt"
             android:textColor="#ffffff"
             android:textSize="16sp" />
+
     </RelativeLayout>
     
 	<RelativeLayout

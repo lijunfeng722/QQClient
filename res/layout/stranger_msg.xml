@@ -1,77 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-    
-    <TableRow>
-        <TableLayout >
-            <TableRow >
-                <TextView
-                    android:id="@+id/textView1_1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="昵称"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-                <TextView
-                    android:id="@+id/nameView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-            </TableRow>
-            
-            <TableRow>
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="账户"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-                <TextView
-                    android:id="@+id/idView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-            </TableRow>
-        </TableLayout>
-        
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" 
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.56" >
+
         <ImageView
-            android:id="@+id/ImgView"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/img_select"
+            android:id="@+id/ImgVwInSMSG"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerInParent="true"
             android:src="@drawable/icon" />
-    </TableRow>
-  
-    <TableRow>
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="邮箱"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-        <TextView
-            android:id="@+id/emailView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-    </TableRow>
-    <TableRow >
-    <Button
-        android:id="@+id/button2"
+    </RelativeLayout>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="返回" />
+        android:text="昵称"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/button1"
+    <TextView
+        android:id="@+id/nameTvInSMSG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+          android:textColor="#000000"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="添加" />
-    </TableRow>
+        android:text="账户"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
-</TableLayout>
+    <TextView
+        android:id="@+id/idTvInSMSG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="邮箱"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/emailTvInSMSG"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+          android:textColor="#000000" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/addBtnInSMSG"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/yuanjiaojuxing_lightpurple"
+            android:text="添加" />
+
+        <Button
+            android:id="@+id/backBtnInSMSG"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/button1"
+            android:background="@drawable/yuanjiaojuxing_lightpurple"
+            android:text="返回" />
+    </LinearLayout>
+
+</LinearLayout>

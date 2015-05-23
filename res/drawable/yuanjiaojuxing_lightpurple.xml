@@ -4,5 +4,6 @@
     <!-- 圆角 -->
     <corners android:radius="9dp" />
  	<!-- 填充 -->  
-    <solid android:color="@color/purple_title" /> <!-- 定义填充的颜色值 -->  
+    <solid android:color="@color/purple_title" /> <!-- 定义填充的颜色值 -->
+      
 </shape>

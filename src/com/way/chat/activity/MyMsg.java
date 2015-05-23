@@ -22,10 +22,10 @@ public class MyMsg extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_msg);
-		myName = (TextView) findViewById(R.id.nameView);
-		myId = (TextView) findViewById(R.id.idView);
-		myEmail = (TextView) findViewById(R.id.emailView);
-		btn = (Button) findViewById(R.id.button1);
+		myName = (TextView) findViewById(R.id.nameTvInMMSG);
+		myId = (TextView) findViewById(R.id.idTvInMMSG);
+		myEmail = (TextView) findViewById(R.id.emailTvInMMSG);
+		btn = (Button) findViewById(R.id.editBtnInMMSG);
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
 		myName.setText(util.getName());
 		myId.setText(util.getId());

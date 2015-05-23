@@ -74,7 +74,7 @@
 
         <activity
             android:name=".WelcomeActivity"
-            android:theme="@android:style/Theme.NoTitleBar" >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -83,33 +83,33 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
             android:name=".Shake"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
             android:name=".AddIdFriend"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
             android:name=".StrangerMsg"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
             android:name=".FriendMsg"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
 
@@ -118,7 +118,7 @@
 
         <activity
             android:name=".MyMsg"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
@@ -149,12 +149,12 @@
         </activity>
         <activity
             android:name=".Photo"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
         <activity
             android:name=".SetMyMsg"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="stateVisible" >
         </activity>
     </application>

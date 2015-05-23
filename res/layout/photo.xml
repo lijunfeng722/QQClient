@@ -2,25 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <Button 
+    android:orientation="vertical" 
+    android:background="#FFFFFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp" 
+        android:layout_marginTop="20dp">
+
+        <Button
+            android:id="@+id/mypicture_btn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="29dp"
+            android:background="@drawable/circle_lightpurple"
+            android:text="相册选取"
+            android:textColor="#FFFFFF" />
+
+        <Button
+            android:id="@+id/system_camera_btn"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/circle_lightpurple"
+            android:text="相机拍照"
+            android:textColor="#FFFFFF" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="调用系统照相机拍照"
-        android:id="@+id/system_camera_btn"/>
-    <Button 
+        android:layout_height="320dp" 
+        android:layout_margin="5dp"
+        android:background="@drawable/yuanjiaojuxing_gray"/>
+
+    <Button
+        android:id="@+id/yes_btn"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="从相册选取"
-        android:id="@+id/mypicture_btn"/>
-	<ImageView 
-	    android:layout_width="fill_parent"
-	    android:layout_height="370dp"
-	    android:id="@+id/imageview"/>
-	<Button 
-	    android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="确定"
-        android:id="@+id/yes_btn"/>
-	
+        android:layout_height="40dp"
+        android:background="@drawable/yuanjiaojuxing_lightpurple"
+        android:layout_margin="5dp"
+         android:textColor="#FFFFFF" 
+        android:text="确定" />
+
 </LinearLayout>

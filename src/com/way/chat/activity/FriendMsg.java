@@ -38,11 +38,11 @@ public class FriendMsg extends MyActivity
 		setContentView(R.layout.friend_msg);
 		user = (User) getIntent().getSerializableExtra("user");
 		application = (MyApplication) this.getApplicationContext();
-		BtnChat = (Button) findViewById(R.id.button2);
-		BtnDelete = (Button) findViewById(R.id.button1);
-		nameView = (TextView) findViewById(R.id.nameView);
-		idView = (TextView) findViewById(R.id.idView);
-		emailView = (TextView) findViewById(R.id.emailView);
+		BtnChat = (Button) findViewById(R.id.startBtnInFMSG);
+		BtnDelete = (Button) findViewById(R.id.deleteBtnInFMSG);
+		nameView = (TextView) findViewById(R.id.nametvInFMSG);
+		idView = (TextView) findViewById(R.id.idTvInFMSG);
+		emailView = (TextView) findViewById(R.id.emailTvInFMSG);
 		nameView.setText(user.getName());
 		idView.setText(user.getId() + " ");
 		emailView.setText(user.getEmail());
