@@ -105,7 +105,6 @@ public class User implements Serializable {
             i.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中  
             options -= 10;//每次都减少10  
         }  
-        System.out.println(baos);
 		this.img = baos.toByteArray();
 	}
 

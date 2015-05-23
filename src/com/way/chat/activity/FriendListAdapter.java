@@ -24,11 +24,10 @@ import com.way.util.GroupFriend;
 public class FriendListAdapter extends BaseAdapter
 {
 
-	private Bitmap imgs;
+	private Bitmap friendImgs;
+	private Bitmap MyImgs;
 	private Context context;
 	private List<User> friendList;// 传递过来的经过处理的总数据
-	
-
 
 	public FriendListAdapter(Context context, List<User> friendList)
 	{
@@ -73,11 +72,11 @@ public class FriendListAdapter extends BaseAdapter
 		final String name = friendList.get(position).getName();
 		final String id = friendList.get(position).getId() + "";
 		final String email = friendList.get(position).getEmail();
-		imgs = BitmapUtil.toRoundCorner((Bitmap) friendList.get(position)
-				.getImg(), 3);
+		final Bitmap i = friendList.get(position).getImg();
+		friendImgs = BitmapUtil.toRoundCorner(i, 3);
 		title.setText(name);// 大标题
 		title2.setText(id);// 小标题
-		Drawable drawable = new BitmapDrawable(imgs);
+		Drawable drawable = new BitmapDrawable(friendImgs);
 		icon.setImageDrawable(drawable);
 		icon.setOnClickListener(new OnClickListener()
 		{
@@ -89,12 +88,12 @@ public class FriendListAdapter extends BaseAdapter
 				User u = new User();
 				u.setName(name);
 				u.setId(Integer.parseInt(id));
-				u.setImg(imgs);
+				u.setImg(i);
 				u.setEmail(email);
 				Intent intent = new Intent(context, FriendMsg.class);
 				intent.putExtra("user", u);
-				((FriendListActivity)context).startActivityForResult(intent, 1);
-				// Toast.makeText(Tab2.this, "开始聊天", 0).show();
+				((FriendListActivity) context)
+						.startActivityForResult(intent, 1);
 
 			}
 		});
@@ -108,10 +107,13 @@ public class FriendListAdapter extends BaseAdapter
 				User u = new User();
 				u.setName(name);
 				u.setId(Integer.parseInt(id));
-				u.setImg(imgs);
+				u.setImg(i);
 				u.setEmail(email);
+				User me = new User();
+				me.setImg(MyImgs);
 				Intent intent = new Intent(context, ChatActivity.class);
 				intent.putExtra("user", u);
+				intent.putExtra("me", me);
 				context.startActivity(intent);
 
 			}
@@ -123,5 +125,15 @@ public class FriendListAdapter extends BaseAdapter
 	{
 		this.friendList = null;
 		this.friendList = friendList;
+	}
+
+	public Bitmap getMyImgs()
+	{
+		return MyImgs;
+	}
+
+	public void setMyImgs(Bitmap myImgs)
+	{
+		MyImgs = myImgs;
 	}
 }

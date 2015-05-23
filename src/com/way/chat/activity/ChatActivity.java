@@ -34,6 +34,7 @@ import com.way.chat.common.bean.TextMessage;
 import com.way.chat.common.bean.User;
 import com.way.chat.common.tran.bean.TranObject;
 import com.way.chat.common.tran.bean.TranObjectType;
+import com.way.chat.common.util.BitmapUtil;
 import com.way.chat.common.util.Constants;
 import com.way.client.Client;
 import com.way.client.ClientOutputThread;
@@ -58,6 +59,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 	private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();// 消息对象数组
 	private SharePreferenceUtil util;
 	private User user;
+	private User me;
 	private MessageDB messageDB;
 	private MyApplication application;
 
@@ -69,6 +71,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 		application = (MyApplication) getApplicationContext();
 		messageDB = new MessageDB(this);
 		user = (User) getIntent().getSerializableExtra("user");
+		me = (User) getIntent().getSerializableExtra("me");
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
 		initView();// 初始化view
 		initData();// 初始化数据
@@ -116,6 +119,8 @@ public class ChatActivity extends MyActivity implements OnClickListener
 			Collections.reverse(mDataArrays);
 		}
 		mAdapter = new ChatMsgViewAdapter(this, mDataArrays);
+		mAdapter.setMyImg(BitmapUtil.toRoundCorner(me.getImg(), 1));
+		mAdapter.setFriendImg(BitmapUtil.toRoundCorner(user.getImg(), 1));
 		mListView.setAdapter(mAdapter);
 		mListView.setSelection(mAdapter.getCount() - 1);
 	}

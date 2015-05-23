@@ -229,7 +229,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 
 		cursor = (ImageView) findViewById(R.id.tab_bg);
 
-		imgs = BitmapUtil.toRoundCorner((Bitmap) list.get(0).getImg(), 2);
+		imgs = BitmapUtil.toRoundCorner( list.get(0).getImg(), 2);
 		Drawable drawable = new BitmapDrawable(imgs);
 		myHeadImage.setImageDrawable(drawable);
 
@@ -252,7 +252,11 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 			@Override
 			public void onClick(View v)
 			{
+			
 				Intent intent = new Intent(FriendListActivity.this, MyMsg.class);
+				User u = new User();
+				u.setImg(list.get(0).getImg());
+				intent.putExtra("user", u);
 				startActivity(intent);
 			}
 
@@ -265,6 +269,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 		// 下面是处理好友列表界面处理
 		listVw = (ListView) lay2.findViewById(R.id.friend_listVw);
 		myExAdapter = new FriendListAdapter(this, list);
+		myExAdapter.setMyImgs(list.get(0).getImg());
 		listVw.setAdapter(myExAdapter);
 
 	}
@@ -467,71 +472,6 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 		}
 	}
 
-	/**
-	 * 好友列表下拉刷新监听与实现，异步任务
-	 * 
-	 * @author way
-	 * 
-	 */
-	public class MyRefreshListener implements MyListView.OnRefreshListener
-	{
-
-		@Override
-		public void onRefresh()
-		{
-			new AsyncTask<Void, Void, Void>()
-			{
-				List<User> list;
-
-				protected Void doInBackground(Void... params)
-				{
-					// 从服务器重新获取好友列表
-					if (application.isClientStart())
-					{
-						ClientOutputThread out = application.getClient()
-								.getClientOutputThread();
-						TranObject o = new TranObject(TranObjectType.REFRESH);
-						o.setFromUser(Integer.parseInt(util.getId()));
-						out.setMsg(o);
-						// 为了及时收到服务器发过来的消息，我这里直接通过监听收消息线程，获取好友列表，就不通过接收广播了
-						ClientInputThread in = application.getClient()
-								.getClientInputThread();
-						in.setMessageListener(new MessageListener()
-						{
-
-							@Override
-							public void Message(TranObject msg)
-							{
-								// TODO Auto-generated method stub
-								if (msg != null
-										&& msg.getType() == TranObjectType.REFRESH)
-								{
-									list = (List<User>) msg.getObject();
-									if (list.size() > 0)
-									{
-										// System.out.println("Friend:" + list);
-										// myExAdapter.updata(group);
-										myExAdapter.updata(list);
-										userDB.updateUser(list);// 保存到数据库
-									}
-								}
-							}
-						});
-					}
-					return null;
-				}
-
-				@Override
-				protected void onPostExecute(Void result)
-				{
-					myExAdapter.notifyDataSetChanged();
-					// myListView.onRefreshComplete();
-					Toast.makeText(FriendListActivity.this, "刷新成功", 0).show();
-				}
-
-			}.execute();
-		}
-	}
 
 	protected void updateLoaderTOLBS(JSONObject json) throws JSONException
 	{

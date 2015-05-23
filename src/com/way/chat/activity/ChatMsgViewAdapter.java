@@ -24,12 +24,8 @@ import java.util.List;
  */
 public class ChatMsgViewAdapter extends BaseAdapter
 {
-	/*
-	 * private int[] imgs = { R.drawable.icon, R.drawable.f1, R.drawable.f2,
-	 * R.drawable.f3, R.drawable.f4, R.drawable.f5, R.drawable.f6,
-	 * R.drawable.f7, R.drawable.f8, R.drawable.f9 };
-	 */
-	private Bitmap imgs;
+	private Bitmap myImg;
+	private Bitmap friendImg;
 
 	public static interface IMsgViewType
 	{
@@ -97,23 +93,32 @@ public class ChatMsgViewAdapter extends BaseAdapter
 		ViewHolder viewHolder = null;
 		if (convertView == null)
 		{
+			viewHolder = new ViewHolder();
 			if (isComMsg)
 			{
 				convertView = mInflater.inflate(
 						R.layout.chatting_item_msg_text_left, null);
+				viewHolder.icon = (ImageView) convertView
+						.findViewById(R.id.userImgVwInL);
+				Drawable drawable = new BitmapDrawable(friendImg);
+				viewHolder.icon.setImageDrawable(drawable);
+
 			} else
 			{
 				convertView = mInflater.inflate(
 						R.layout.chatting_item_msg_text_right, null);
+				viewHolder.icon = (ImageView) convertView
+						.findViewById(R.id.userImgVwInR);
+				Drawable drawable = new BitmapDrawable(myImg);
+				viewHolder.icon.setImageDrawable(drawable);
 			}
 
-			viewHolder = new ViewHolder();
+			
 			viewHolder.tvUserName = (TextView) convertView
 					.findViewById(R.id.tv_username);
 			viewHolder.tvContent = (TextView) convertView
 					.findViewById(R.id.tv_chatcontent);
-			viewHolder.icon = (ImageView) convertView
-					.findViewById(R.id.iv_userhead);
+
 			viewHolder.isComMsg = isComMsg;
 
 			convertView.setTag(viewHolder);
@@ -164,9 +169,27 @@ public class ChatMsgViewAdapter extends BaseAdapter
 			Drawable drawable = new BitmapDrawable(entity.getImageByte());
 			viewHolder.tvContent.setText("点我有惊喜");
 		}
-		Drawable drawable = new BitmapDrawable(imgs);
-		viewHolder.icon.setImageDrawable(drawable);
 		return convertView;
+	}
+
+	public Bitmap getFriendImg()
+	{
+		return friendImg;
+	}
+
+	public void setFriendImg(Bitmap friendImg)
+	{
+		this.friendImg = friendImg;
+	}
+
+	public Bitmap getMyImg()
+	{
+		return myImg;
+	}
+
+	public void setMyImg(Bitmap myImg)
+	{
+		this.myImg = myImg;
 	}
 
 	static class ViewHolder

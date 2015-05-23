@@ -119,7 +119,6 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 				// 提交注册信息
 				if (application.isClientStart()) {// 如果已连接上服务器
 					Resources res=getResources();
-			//		Bitmap bmp=BitmapFactory.decodeResource(res, R.drawable.top_back_left);
 					Client client = application.getClient();
 //					Client client = GetMsgService.client;
 					ClientOutputThread out = client.getClientOutputThread();

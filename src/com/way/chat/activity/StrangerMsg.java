@@ -3,6 +3,7 @@ package com.way.chat.activity;
 import com.way.chat.common.bean.User;
 import com.way.chat.common.tran.bean.TranObject;
 import com.way.chat.common.tran.bean.TranObjectType;
+import com.way.chat.common.util.BitmapUtil;
 import com.way.chat.common.util.Constants;
 import com.way.client.Client;
 import com.way.client.ClientOutputThread;
@@ -26,7 +27,7 @@ public class StrangerMsg extends MyActivity
 	private TextView nameView;
 	private TextView idView;
 	private TextView emailView;
-	private ImageView ImgView;
+	private ImageView iconImgVw;
 	private TranObject msg;
 	private MyApplication application;
 	private SharePreferenceUtil util;
@@ -38,6 +39,7 @@ public class StrangerMsg extends MyActivity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.stranger_msg);
 		application = (MyApplication) this.getApplicationContext();
+		iconImgVw = (ImageView)findViewById(R.id.ImgVwInSMSG);
 		BtnAdd = (Button) findViewById(R.id.addBtnInSMSG);
 		BtnCancel = (Button) findViewById(R.id.backBtnInSMSG);
 		nameView = (TextView) findViewById(R.id.nameTvInSMSG);
@@ -51,7 +53,7 @@ public class StrangerMsg extends MyActivity
 		nameView.setText(newFriend.getName());
 		idView.setText(newFriend.getId() + " ");
 		emailView.setText(newFriend.getEmail());
-
+		iconImgVw.setImageBitmap(BitmapUtil.toRoundCorner(newFriend.getImg(), 1));
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
 		BtnAdd.setOnClickListener(new Button.OnClickListener()
 		{
