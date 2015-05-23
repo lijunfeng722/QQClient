@@ -41,7 +41,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,7 +62,6 @@ import com.way.chat.common.util.Constants;
 import com.way.client.ClientInputThread;
 import com.way.client.ClientOutputThread;
 import com.way.client.MessageListener;
-import com.way.util.GroupFriend;
 import com.way.util.MessageDB;
 import com.way.util.MyDate;
 import com.way.util.SharePreferenceUtil;
@@ -561,7 +559,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 		{
 			CreatePoi.create(getLoaderID(), "" + location.getLatitude(), ""
 					+ location.getLongitude(), "3", "96621",
-					"y57UxLLTE5dstVUZeU1mXqGw", handler, poi_create_request,
+					Constants.AK, handler, poi_create_request,
 					this);
 		} else
 		{

@@ -77,7 +77,7 @@ public class Shake extends MyActivity implements CloudListener
 		System.out.println("shake 3");
 		NearbySearchInfo info = new NearbySearchInfo();
 		// ע�⣺�˴���д��akΪ����˵�ak��������SDK��key����ϸ��Ϣ��鿴LBS�Ƽ����Ĺٷ��ĵ�
-		info.ak = "y57UxLLTE5dstVUZeU1mXqGw";
+		info.ak = Constants.AK;
 		info.geoTableId = 96621;
 		info.q = "";
 		info.radius = 1000;

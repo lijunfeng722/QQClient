@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/camera"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/titlebar_camera"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:background="@color/blue_title"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/ca_back_btn"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dip"
+            android:background="@drawable/return_btn_back"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="@string/return_txt"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="选择头像"
+            android:textColor="@color/white"
+            android:textSize="20.0sp" />
+
+        <Button
+            android:id="@+id/ca_yesBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/ca_back_btn"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal|center_vertical"
+            android:text="确定"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </RelativeLayout>
+    
+	<RelativeLayout
+	    android:id="@+id/img_View"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/imgview"
+                android:layout_width="fill_parent"
+     		    android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+           	    android:gravity="center_horizontal|center_vertical"
+                android:background="@color/green"
+                android:scaleType="fitXY"
+                />
+    </RelativeLayout>
+    
+   
+</LinearLayout>

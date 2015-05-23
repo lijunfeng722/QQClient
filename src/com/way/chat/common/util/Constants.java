@@ -16,4 +16,5 @@ public class Constants
 	public static final String DBNAME = "qq.db";// 数据库名称
 	public static final String SAVEPATH = Environment
 			.getExternalStorageDirectory().getAbsolutePath() + "/QQClient";
+	public static final String AK = "y57UxLLTE5dstVUZeU1mXqGw";
 }

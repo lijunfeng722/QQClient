@@ -75,7 +75,8 @@ public class ActivityMap extends Activity
 				{
 					text = "我";
 					text += "经度" + latlng.longitude + "纬度 " + latlng.latitude;
-					Toast.makeText(ActivityMap.this, text, Toast.LENGTH_SHORT).show();
+					Toast.makeText(ActivityMap.this, text, Toast.LENGTH_SHORT)
+							.show();
 				} else
 				{
 					text = marker.getTitle();
@@ -94,19 +95,15 @@ public class ActivityMap extends Activity
 
 	private Bitmap getLoaderIcon()
 	{
-		int[] imgs =
-		{ R.drawable.icon, R.drawable.f1, R.drawable.f2, R.drawable.f3,
-				R.drawable.f4, R.drawable.f5, R.drawable.f6, R.drawable.f7,
-				R.drawable.f8, R.drawable.f9 };// 头像资源
-		return BitmapFactory.decodeResource(getResources(),
-				imgs[1]);
+		return BitmapFactory.decodeResource(getResources(), R.drawable.icon);
 	}
 
 	private Bitmap getStrangerIcon(String id)
 	{
-		if (application.getStrangerImage().get(id) == null)
-			System.out.println("getStrangerIcon == null");
-		return application.getStrangerImage().get(id);
+		// if (application.getStrangerImage().get(id) == null)
+		// System.out.println("getStrangerIcon == null");
+		// return application.getStrangerImage().get(id);
+		return BitmapFactory.decodeResource(getResources(), R.drawable.icon);
 	}
 
 	@Override
