@@ -98,6 +98,7 @@ public class Photo extends Activity
 		intent = new Intent();  
         // 指定intent要启动的类  
         intent.setClass(Photo.this, PhotoAlbumActivity.class);   
+        intent.putExtra("From", "Register");
         //启动一个新的Activity  
         startActivity(intent);  
         // 关闭当前的Activity   

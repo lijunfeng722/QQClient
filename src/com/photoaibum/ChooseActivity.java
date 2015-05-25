@@ -1,8 +1,5 @@
 package com.photoaibum;
 
-import com.way.chat.activity.Photo;
-import com.way.chat.activity.R;
-import com.way.chat.activity.RegisterActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -11,24 +8,32 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.way.chat.activity.ChatActivity;
+import com.way.chat.activity.Photo;
+import com.way.chat.activity.R;
+import com.way.chat.activity.RegisterActivity;
+
 public class ChooseActivity extends Activity
 {
-	private Button    yesBtn     = null;
-	private Button    backBtn    = null;
-	private Bitmap    myBitmap   = null;
+	private Button yesBtn = null;
+	private Button backBtn = null;
+	private Bitmap myBitmap = null;
 	private ImageView cameraImgv = null;
+	private String from = null;
+
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.choose);
-		
+
 		yesBtn = (Button) findViewById(R.id.choose_yesBtn);
 		backBtn = (Button) findViewById(R.id.choose_back_btn);
 		cameraImgv = (ImageView) findViewById(R.id.choose_imgview);
-		
-		if (null!=getIntent().getExtras())
-		{			
-			myBitmap = (Bitmap)getIntent().getExtras().get("picture");		
+
+		if (null != getIntent().getExtras())
+		{
+			myBitmap = (Bitmap) getIntent().getExtras().get("picture");
+			from = getIntent().getStringExtra("From");
 		}
 		yesBtn.setOnClickListener(click);
 		backBtn.setOnClickListener(click);
@@ -36,6 +41,7 @@ public class ChooseActivity extends Activity
 		cameraImgv.setImageBitmap(myBitmap);// 将图片显示在ImageView里
 		System.out.println("before take");
 	}
+
 	private View.OnClickListener click = new View.OnClickListener()
 	{
 		@Override
@@ -45,23 +51,32 @@ public class ChooseActivity extends Activity
 			switch (v.getId())
 			{
 			case R.id.choose_yesBtn:
-				intent = new Intent();  
-                // 指定intent要启动的类  
-                intent.setClass(ChooseActivity.this, RegisterActivity.class);   
-                intent.putExtra("bitmap", myBitmap);
-                //启动一个新的Activity  
-                startActivity(intent);  
-                // 关闭当前的Activity   
-                finish();
+				intent = new Intent();
+				// 指定intent要启动的类
+				if (from.equals("Photo"))
+				{
+					intent.setClass(ChooseActivity.this, RegisterActivity.class);
+				} else if (from.equals("ChatActivity"))
+				{
+					intent.setClass(ChooseActivity.this, ChatActivity.class);
+				} else
+					System.out.println("From is null");
+
+				intent.putExtra("bitmap", myBitmap);
+
+				// 启动一个新的Activity
+				startActivity(intent);
+				// 关闭当前的Activity
+				finish();
 				break;
 			case R.id.choose_back_btn:
-				intent = new Intent();  
-                // 指定intent要启动的类  
-                intent.setClass(ChooseActivity.this, Photo.class);   
-                //启动一个新的Activity  
-                startActivity(intent);  
-                // 关闭当前的Activity   
-                finish();
+				intent = new Intent();
+				// 指定intent要启动的类
+				intent.setClass(ChooseActivity.this, Photo.class);
+				// 启动一个新的Activity
+				startActivity(intent);
+				// 关闭当前的Activity
+				finish();
 				break;
 			}
 		}

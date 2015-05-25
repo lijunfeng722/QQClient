@@ -20,11 +20,13 @@ public class PhotoActivity extends Activity  {
 	private GridView gv;
 	private PhotoAibum aibum;
 	private PhotoAdappter adapter;
+	private String from=null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_photoalbum_gridview);
 		aibum = (PhotoAibum)getIntent().getExtras().get("aibum");
+		from  =getIntent().getStringExtra("From"); 
 		gv =(GridView)findViewById(R.id.photo_gridview);
 		adapter = new PhotoAdappter(this,aibum);
 		gv.setAdapter(adapter);
@@ -45,6 +47,7 @@ public class PhotoActivity extends Activity  {
 							Thumbnails.MINI_KIND, null);
 			System.out.println("before pic");
 			intent.putExtra("picture", bitmap);
+			intent.putExtra("From", from);
 			startActivity(intent);	
 			finish();
 		}

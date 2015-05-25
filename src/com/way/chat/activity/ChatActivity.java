@@ -8,16 +8,24 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -60,8 +68,11 @@ public class ChatActivity extends MyActivity implements OnClickListener
 	private SharePreferenceUtil util;
 	private User user;
 	private User me;
+	private File   mPhotoFile = null;
+	private Bitmap myBitmap   = null;
 	private MessageDB messageDB;
 	private MyApplication application;
+	private static final int SCALE = 6;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -219,18 +230,11 @@ public class ChatActivity extends MyActivity implements OnClickListener
 					{
 						// TODO 发送图片
 						System.out.println("进行发送图片");
-						Resources res = getResources();
-						Bitmap bmp = BitmapFactory.decodeResource(res,
-								R.drawable.top_back_left);
-						ChatMsgEntity entity = new ChatMsgEntity();
-						entity.setName(util.getName());
-						entity.setDate(MyDate.getDateEN());
-						entity.setMessage("我是图片");
-						entity.setImageByte(bmp);
-						entity.setIsComMsg(false);
-						entity.setMsgType(ChatMsgEntity.MSG_TYPE_IMAGE);
-						send(entity);
-
+						Intent intent = null;
+						intent = new Intent(Intent.ACTION_GET_CONTENT);
+						intent.addCategory(Intent.CATEGORY_OPENABLE);
+						intent.setType("image/jpeg");
+						startActivityForResult(intent, 0);
 					}
 				}
 			});
@@ -238,7 +242,71 @@ public class ChatActivity extends MyActivity implements OnClickListener
 			break;
 		}
 	}
+	private String getPhotoFileName()
+	{
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"'IMG'_yyyyMMdd_HHmmss");
+		return dateFormat.format(date) + ".jpg";
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		ContentResolver resolver = getContentResolver();
+		
+		switch (requestCode)
+		{
+		case 0://选择图片
+			if (Activity.RESULT_OK == resultCode)
+			{
+		    	Uri originalUri = data.getData();
+				try {
+					// 使用ContentProvider通过URI获取原始图片
+					Bitmap photo = MediaStore.Images.Media.getBitmap(resolver,originalUri);
+					if (photo != null) {
+						// 为防止原始图片过大导致内存溢出，这里先缩小原图显示，然后释放原始Bitmap占用的内存
+						myBitmap = zoomBitmap(photo, photo.getWidth()/SCALE, photo.getHeight()/SCALE);
+						// 释放原始图片占用的内存，防止out of memory异常发生
+						photo.recycle();
+					}
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		    	ChatMsgEntity entity = new ChatMsgEntity();
+				entity.setName(util.getName());
+				entity.setDate(MyDate.getDateEN());
+				entity.setMessage("我是图片");
+				entity.setImageByte(myBitmap);
+				entity.setIsComMsg(false);
+				entity.setMsgType(ChatMsgEntity.MSG_TYPE_IMAGE);
+				send(entity);
+			}
+			break;
+		}
+	}
+	public Bitmap zoomBitmap(Bitmap bitmap, int width, int height) 
+	{
 
+		int w = bitmap.getWidth();
+
+		int h = bitmap.getHeight();
+
+		Matrix matrix = new Matrix();
+
+		float scaleWidth = ((float) width / w);
+
+		float scaleHeight = ((float) height / h);
+
+		matrix.postScale(scaleWidth, scaleHeight);// 利用矩阵进行缩放不会造成内存溢出
+
+		Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+
+		return newbmp;
+	}  
 	/**
 	 * 发送消息
 	 */
