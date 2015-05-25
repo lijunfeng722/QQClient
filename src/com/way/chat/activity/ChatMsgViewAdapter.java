@@ -142,7 +142,6 @@ public class ChatMsgViewAdapter extends BaseAdapter
 				} else if (entity.getMsgType() == ChatMsgEntity.MSG_TYPE_IMAGE)
 				{
 					Bitmap bmp = entity.getImageByte();
-					System.out.println(bmp);
 					System.out.println("tvContent onclick getPath="
 							+ entity.getPath());
 					MyDialog dialog = new MyDialog(context, bmp);

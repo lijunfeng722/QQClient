@@ -19,7 +19,6 @@ public class ChooseActivity extends Activity
 	private Button backBtn = null;
 	private Bitmap myBitmap = null;
 	private ImageView cameraImgv = null;
-	private String from = null;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -33,7 +32,6 @@ public class ChooseActivity extends Activity
 		if (null != getIntent().getExtras())
 		{
 			myBitmap = (Bitmap) getIntent().getExtras().get("picture");
-			from = getIntent().getStringExtra("From");
 		}
 		yesBtn.setOnClickListener(click);
 		backBtn.setOnClickListener(click);
@@ -53,14 +51,7 @@ public class ChooseActivity extends Activity
 			case R.id.choose_yesBtn:
 				intent = new Intent();
 				// 指定intent要启动的类
-				if (from.equals("Photo"))
-				{
-					intent.setClass(ChooseActivity.this, RegisterActivity.class);
-				} else if (from.equals("ChatActivity"))
-				{
-					intent.setClass(ChooseActivity.this, ChatActivity.class);
-				} else
-					System.out.println("From is null");
+				intent.setClass(ChooseActivity.this, RegisterActivity.class);
 
 				intent.putExtra("bitmap", myBitmap);
 

@@ -72,7 +72,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 	private Bitmap myBitmap   = null;
 	private MessageDB messageDB;
 	private MyApplication application;
-	private static final int SCALE = 6;
+	private static final int SCALE = 3;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -217,7 +217,6 @@ public class ChatActivity extends MyActivity implements OnClickListener
 								entity.setName(util.getName());
 								entity.setDate(MyDate.getDateEN());
 								entity.setMessage("我是录音");
-								// entity.setImg(util.getImg());
 								entity.setIsComMsg(false);
 								entity.setMsgType(ChatMsgEntity.MSG_TYPE_VIOCE);
 								entity.setVoiceByte(data);

@@ -91,23 +91,6 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 		}
 	}
 
-	/**
-	 * “更多登录选项”内容的显示方法
-	 * 
-	 * @param bShow
-	 *            是否显示
-
-	public void showMoreView(boolean bShow) {
-		if (bShow) {
-			mMoreMenuView.setVisibility(View.GONE);
-			mMoreImage.setImageResource(R.drawable.login_more_up);
-			mShowMenu = true;
-		} else {
-			mMoreMenuView.setVisibility(View.VISIBLE);
-			mMoreImage.setImageResource(R.drawable.login_more);
-			mShowMenu = false;
-		}
-	}*/
 
 	/**
 	 * 处理点击事件
@@ -238,9 +221,6 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	// 菜单选项添加事件处理
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.login_menu_setting:
-			setDialog();
-			break;
 		case R.id.login_menu_exit:
 			exitDialog(LoginActivity.this, "QQ提示", "亲！您真的要退出吗？");
 			break;
@@ -282,40 +262,6 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 				}).setNegativeButton("取消", null).create().show();
 	}
 
-	/**
-	 * “设置”菜单选项的功能实现
-	 */
-	private void setDialog() {
-		final View view = LayoutInflater.from(LoginActivity.this).inflate(
-				R.layout.setting_view, null);
-		new AlertDialog.Builder(LoginActivity.this).setTitle("设置服务器ip、port")
-				.setView(view)
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// 把ip和port保存到文件中
-						EditText ipEditText = (EditText) view
-								.findViewById(R.id.setting_ip);
-						EditText portEditText = (EditText) view
-								.findViewById(R.id.setting_port);
-						String ip = ipEditText.getText().toString();
-						String port = portEditText.getText().toString();
-						SharePreferenceUtil util = new SharePreferenceUtil(
-								LoginActivity.this, Constants.IP_PORT);
-						if (ip.length() > 0 && port.length() > 0) {
-							util.setIp(ip);
-							util.setPort(Integer.valueOf(port));
-							Toast.makeText(getApplicationContext(),
-									"亲！保存成功，重启生效哦", 0).show();
-							finish();
-						}else{
-							Toast.makeText(getApplicationContext(),
-									"亲！ip和port都不能为空哦", 0).show();
-						}
-					}
-				}).setNegativeButton("取消", null).create().show();
-	}
 
 	/**
 	 * 判断手机网络是否可用

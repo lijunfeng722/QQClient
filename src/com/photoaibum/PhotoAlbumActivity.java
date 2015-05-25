@@ -33,7 +33,6 @@ import com.way.chat.activity.R;
 public class PhotoAlbumActivity extends Activity{
 	private GridView aibumGV;
 	private List<PhotoAibum> aibumList;
-	private String from;
 
 	// 设置获取图片的字段信�?
 	private static final String[] STORE_IMAGES = {
@@ -53,7 +52,6 @@ public class PhotoAlbumActivity extends Activity{
 		aibumList = getPhotoAlbum();
 		aibumGV.setAdapter(new PhotoAibumAdapter(aibumList, this));
 		aibumGV.setOnItemClickListener(aibumClickListener);
-		from=getIntent().getStringExtra("From");
 	}
 
 	/**
@@ -66,7 +64,6 @@ public class PhotoAlbumActivity extends Activity{
 			Intent intent = new Intent(PhotoAlbumActivity.this,
 					PhotoActivity.class);
 			intent.putExtra("aibum", aibumList.get(position));
-			intent.putExtra("From", from);
 			startActivity(intent);
 			finish();
 		}
