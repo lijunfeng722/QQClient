@@ -143,7 +143,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 		String accounts = mAccounts.getText().toString();
 		String password = mPassword.getText().toString();
 		if (accounts.length() == 0 || password.length() == 0) {
-			DialogFactory.ToastDialog(this, "QQ登录", "亲！帐号或密码不能为空哦");
+			DialogFactory.ToastDialog(this, "HS登录", "亲！帐号或密码不能为空哦");
 		} else {
 			showRequestDialog();
 			// 通过Socket验证信息
@@ -159,7 +159,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 			} else {
 				if (mDialog.isShowing())
 					mDialog.dismiss();
-				DialogFactory.ToastDialog(LoginActivity.this, "QQ登录",
+				DialogFactory.ToastDialog(LoginActivity.this, "HS登录",
 						"亲！服务器暂未开放哦");
 			}
 		}
@@ -174,7 +174,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 			case LOGIN:// LoginActivity只处理登录的消息
 				List<User> list = (List<User>) msg.getObject();
 				if(list==null) {
-					DialogFactory.ToastDialog(LoginActivity.this, "QQ登录",
+					DialogFactory.ToastDialog(LoginActivity.this, "HS登录",
 							"亲！您的帐号或密码错误哦");
 					if (mDialog.isShowing())
 						mDialog.dismiss();
@@ -222,7 +222,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.login_menu_exit:
-			exitDialog(LoginActivity.this, "QQ提示", "亲！您真的要退出吗？");
+			exitDialog(LoginActivity.this, "HS提示", "亲！您真的要退出吗？");
 			break;
 		default:
 			break;
@@ -232,7 +232,7 @@ public class LoginActivity extends MyActivity implements OnClickListener {
 
 	@Override
 	public void onBackPressed() {// 捕获返回按键
-		exitDialog(LoginActivity.this, "QQ提示", "亲！您真的要退出吗？");
+		exitDialog(LoginActivity.this, "HS提示", "亲！您真的要退出吗？");
 	}
 
 	/**

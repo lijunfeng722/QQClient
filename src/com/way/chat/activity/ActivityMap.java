@@ -83,7 +83,7 @@ public class ActivityMap extends Activity
 					text += "经度" + latlng.longitude + "纬度 " + latlng.latitude;
 					Intent intent = new Intent();
 					intent.putExtra("ID", marker.getTitle());
-					intent.setClass(ActivityMap.this, ActivityChoose.class);
+					intent.setClass(ActivityMap.this, PinTuActy.class);
 					startActivity(intent);
 					ActivityMap.this.finish();
 				}

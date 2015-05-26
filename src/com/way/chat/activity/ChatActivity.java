@@ -16,12 +16,9 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -30,13 +27,11 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.way.chat.activity.SendWhatDialog.OnCustomDialogListener;
 import com.way.chat.common.bean.TextMessage;
@@ -242,7 +237,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 			dialog.show();
 			break;
 		}
-	}
+}
 	private String getPhotoFileName()
 	{
 		Date date = new Date(System.currentTimeMillis());
@@ -281,6 +276,23 @@ public class ChatActivity extends MyActivity implements OnClickListener
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				
+				String savePath = Constants.SAVEPATH + "/"
+						+ util.getName() + "/imgFile";
+				File createDir = new File(savePath);
+                if (!createDir.exists()) {
+                        createDir.mkdirs(); 
+                }
+				File f = new File(savePath,getPhotoFileName());
+				FileOutputStream fOut = null;
+                try {
+                        fOut = new FileOutputStream(f);
+                        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+                        fOut.flush();
+                        fOut.close();
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
 		    	ChatMsgEntity entity = new ChatMsgEntity();
 				entity.setName(util.getName());
 				entity.setDate(MyDate.getDateEN());
@@ -289,7 +301,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 				entity.setIsComMsg(false);
 				entity.setMsgType(ChatMsgEntity.MSG_TYPE_IMAGE);
 				
-				entity.setPath(imgPath);
+				entity.setPath(f.toString());
 				send(entity);
 			}
 			break;

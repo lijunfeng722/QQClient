@@ -180,8 +180,7 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 					mDialog.dismiss();
 					mDialog = null;
 				}
-				DialogFactory.ToastDialog(RegisterActivity.this, "HS注册",
-						"亲！请牢记您的登录帐号哦：" + id);
+				addDialog(RegisterActivity.this, "注册成功", "亲！请牢记您的登录帐号哦：" + id);
 			} else {
 				if (mDialog != null) {
 					mDialog.dismiss();
@@ -215,4 +214,24 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 
 		return newbmp;
 	}  
+	private void addDialog(Context context, String title, String msg)
+	{
+		new AlertDialog.Builder(context)
+				.setTitle(title)
+				.setMessage(msg)
+				.setPositiveButton("确定",
+						new DialogInterface.OnClickListener()
+						{
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which)
+							{
+								Intent intent = new Intent();
+								intent.setClass(RegisterActivity.this,
+										LoginActivity.class);
+								startActivity(intent);
+							}
+						}).create().show();
+	}
 }

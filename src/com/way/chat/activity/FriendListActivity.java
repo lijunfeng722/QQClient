@@ -315,7 +315,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener
 			addDialog(FriendListActivity.this, "添加好友", "请选择添加方式！");
 			break;
 		case R.id.friend_menu_exit:
-			exitDialog(FriendListActivity.this, "QQ提示", "亲！您真的要退出吗？");
+			exitDialog(FriendListActivity.this, "提示", "亲！您真的要退出吗？");
 			break;
 		default:
 			break;

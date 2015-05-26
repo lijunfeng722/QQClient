@@ -4,7 +4,7 @@ import android.os.Environment;
 
 public class Constants
 {
-	public static final String SERVER_IP = "192.168.3.173";// 服务器ip
+	public static final String SERVER_IP = "192.168.43.192";// 服务器ip
 	public static final int SERVER_PORT = 8080;// 服务器端口
 	public static final int REGISTER_FAIL = 0;// 注册失败
 	public static final String ACTION = "com.way.message";// 消息广播action
@@ -15,6 +15,6 @@ public class Constants
 	public static final int NOTIFY_ID = 0x911;// 通知ID
 	public static final String DBNAME = "qq.db";// 数据库名称
 	public static final String SAVEPATH = Environment
-			.getExternalStorageDirectory().getAbsolutePath() + "/QQClient";
+			.getExternalStorageDirectory().getAbsolutePath() + "/HSClient";
 	public static final String AK = "y57UxLLTE5dstVUZeU1mXqGw";
 }
