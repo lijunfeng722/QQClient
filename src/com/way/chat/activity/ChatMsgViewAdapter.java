@@ -2,6 +2,8 @@ package com.way.chat.activity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
@@ -26,7 +28,7 @@ public class ChatMsgViewAdapter extends BaseAdapter
 {
 	private Bitmap myImg;
 	private Bitmap friendImg;
-
+	private static final float scale = 0.5f;
 	public static interface IMsgViewType
 	{
 		int IMVT_COM_MSG = 0;// 收到对方的消息
@@ -141,7 +143,8 @@ public class ChatMsgViewAdapter extends BaseAdapter
 					mPlayer.start();
 				} else if (entity.getMsgType() == ChatMsgEntity.MSG_TYPE_IMAGE)
 				{
-					Bitmap bmp = entity.getImageByte();
+					Bitmap bmp = BitmapFactory.decodeFile(entity.getPath());
+					bmp = zoomBitmap(bmp,scale);
 					System.out.println("tvContent onclick getPath="
 							+ entity.getPath());
 					MyDialog dialog = new MyDialog(context, bmp);
@@ -166,11 +169,20 @@ public class ChatMsgViewAdapter extends BaseAdapter
 		} else
 		{
 			Drawable drawable = new BitmapDrawable(entity.getImageByte());
-			viewHolder.tvContent.setText("点我有惊喜");
+			viewHolder.tvContent.setText("点击查看图像");
 		}
 		return convertView;
 	}
+	public Bitmap zoomBitmap(Bitmap bitmap ,float scale) 
+	{
+		Matrix matrix = new Matrix();
+		matrix.postScale(scale, scale);// 利用矩阵进行缩放不会造成内存溢出
 
+		Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0
+				, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+
+		return newbmp;
+	}  
 	public Bitmap getFriendImg()
 	{
 		return friendImg;

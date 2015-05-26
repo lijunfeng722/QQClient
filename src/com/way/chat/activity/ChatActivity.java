@@ -19,6 +19,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -262,6 +263,10 @@ public class ChatActivity extends MyActivity implements OnClickListener
 			if (Activity.RESULT_OK == resultCode)
 			{
 		    	Uri originalUri = data.getData();
+		    	Cursor cursor = getContentResolver().query(originalUri, null, null, null, null);
+		    	cursor.moveToFirst();
+		    	String imgPath = cursor.getString(1);
+		    	cursor.close();
 				try {
 					// 使用ContentProvider通过URI获取原始图片
 					Bitmap photo = MediaStore.Images.Media.getBitmap(resolver,originalUri);
@@ -284,7 +289,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 				entity.setIsComMsg(false);
 				entity.setMsgType(ChatMsgEntity.MSG_TYPE_IMAGE);
 				
-//				entity.setPath(savePath + "/" + fileName);
+				entity.setPath(imgPath);
 				send(entity);
 			}
 			break;
