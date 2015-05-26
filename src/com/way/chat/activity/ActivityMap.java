@@ -95,22 +95,18 @@ public class ActivityMap extends Activity
 
 	private Bitmap getLoaderIcon()
 	{
-		return BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+		return BitmapFactory.decodeResource(getResources(), R.drawable.locate_icon);
 	}
 
 	private Bitmap getStrangerIcon(String id)
 	{
-		// if (application.getStrangerImage().get(id) == null)
-		// System.out.println("getStrangerIcon == null");
-		// return application.getStrangerImage().get(id);
-		return BitmapFactory.decodeResource(getResources(), R.drawable.icon);
+		return BitmapFactory.decodeResource(getResources(), R.drawable.locate_icon);
 	}
 
 	@Override
 	protected void onPause()
 	{
 		super.onPause();
-		// activity ��ͣʱͬʱ��ͣ��ͼ�ؼ�
 		mMapView.onPause();
 	}
 
@@ -118,7 +114,6 @@ public class ActivityMap extends Activity
 	protected void onResume()
 	{
 		super.onResume();
-		// activity �ָ�ʱͬʱ�ָ���ͼ�ؼ�
 		mMapView.onResume();
 	}
 
@@ -135,8 +130,6 @@ public class ActivityMap extends Activity
 		@Override
 		public void run()
 		{
-			// // markerList = new ArrayList<Marker>();
-			// ��ʾİ����λ�ñ��
 			Iterator<Map.Entry<String, BDLocation>> it = ((MyApplication) getApplicationContext())
 					.getStranger().entrySet().iterator();
 			while (it.hasNext())

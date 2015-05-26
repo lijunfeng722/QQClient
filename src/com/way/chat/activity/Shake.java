@@ -105,18 +105,11 @@ public class Shake extends MyActivity implements CloudListener
 		{
 			if (result.poiInfo != null)
 			{
-				// Toast.makeText(ActivityShake.this, result.poiInfo.title,
-				// Toast.LENGTH_SHORT).show();
-		//		System.out.println("result.poiInfo.title"+ result.poiInfo.title);
 			} else
 			{
-				// Toast.makeText(ActivityShake.this, "status:" + result.status,
-				// Toast.LENGTH_SHORT).show();
-		//		System.out.println("status:" + result.status);
 			}
 		} else
 		{
-		//	System.out.println("result == null IN onGetDetailSearchResult");
 		}
 	}
 
@@ -158,7 +151,6 @@ public class Shake extends MyActivity implements CloudListener
 	{
 		if (msg != null)
 		{
-		//	System.out.println("Result:" + msg);
 			switch (msg.getType())
 			{
 			case FriendCheck:
@@ -166,8 +158,8 @@ public class Shake extends MyActivity implements CloudListener
 				System.out.println(friend);
 				if (friend.getId() == 0)
 				{
-			//		System.out.println("friend.getId()==0");
-					BitmapFactory.decodeResource(getResources(),R.drawable.icon);
+					BitmapFactory.decodeResource(getResources(),
+							R.drawable.icon);
 				} else
 				{
 					myApplication.addStrangerImage("" + friend.getId(),
@@ -182,12 +174,6 @@ public class Shake extends MyActivity implements CloudListener
 
 	private Bitmap getStrangerIcon(int i)
 	{
-		/*int[] imgs =
-		{ 
-				R.drawable.icon, R.drawable.f1, R.drawable.f2, R.drawable.f3,
-				R.drawable.f4, R.drawable.f5, R.drawable.f6, R.drawable.f7,
-				R.drawable.f8, R.drawable.f9 };// 头像资源*/
-
 		return BitmapFactory.decodeResource(getResources(), 1);
 	}
 
@@ -196,7 +182,6 @@ public class Shake extends MyActivity implements CloudListener
 		@Override
 		public void onAccuracyChanged(Sensor arg0, int arg1)
 		{
-			// TODO Auto-generated method stub
 		}
 
 		@Override
@@ -224,14 +209,18 @@ public class Shake extends MyActivity implements CloudListener
 			}
 		}
 	}
-	 @Override
-	 protected void onPause() {
-	  mSensorManager.unregisterListener(sensor);
-	  super.onPause();
-	 }
-	 @Override
-	 protected void onStop() {
-	  mSensorManager.unregisterListener(sensor);
-	  super.onStop();
-	 }
+
+	@Override
+	protected void onPause()
+	{
+		mSensorManager.unregisterListener(sensor);
+		super.onPause();
+	}
+
+	@Override
+	protected void onStop()
+	{
+		mSensorManager.unregisterListener(sensor);
+		super.onStop();
+	}
 }

@@ -1,14 +1,20 @@
 package com.way.chat.activity;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -41,8 +47,26 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
         Intent intent=getIntent();
         if(intent!=null)
         {
-            bitmap=intent.getParcelableExtra("bitmap");
-            imageview.setImageBitmap(bitmap);
+        	ContentResolver resolver = getContentResolver();
+        	Uri fileUri =intent.getParcelableExtra("bitmap");
+        	Bitmap photo =null;
+        	try
+			{
+				photo = MediaStore.Images.Media.getBitmap(resolver,fileUri);
+				
+				photo = zoomBitmap(photo, photo.getWidth()/3, photo.getHeight()/3);
+				this.bitmap = photo;
+				// 释放原始图片占用的内存，防止out of memory异常发生
+			} catch (FileNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            imageview.setImageBitmap(photo);
         }
 		application = (MyApplication) this.getApplicationContext();
 		initView();
@@ -94,7 +118,7 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 	}
 
 	private void toast(Context context) {
-		new AlertDialog.Builder(context).setTitle("QQ注册")
+		new AlertDialog.Builder(context).setTitle("HS注册")
 				.setMessage("亲！您真的不注册了吗？")
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
@@ -111,7 +135,7 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 		String passwd2 = mPasswdEt2.getText().toString();
 		if (email.equals("") || name.equals("") || passwd.equals("")
 				|| passwd2.equals("")) {
-			DialogFactory.ToastDialog(RegisterActivity.this, "QQ注册",
+			DialogFactory.ToastDialog(RegisterActivity.this, "HS注册",
 					"亲！带*项是不能为空的哦");
 		} else {
 			if (passwd.equals(passwd2)) {
@@ -134,11 +158,11 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 				} else {
 					if (mDialog.isShowing())
 						mDialog.dismiss();
-					DialogFactory.ToastDialog(this, "QQ注册", "亲！服务器暂未开放哦");
+					DialogFactory.ToastDialog(this, "HS注册", "亲！服务器暂未开放哦");
 				}
 
 			} else {
-				DialogFactory.ToastDialog(RegisterActivity.this, "QQ注册",
+				DialogFactory.ToastDialog(RegisterActivity.this, "HS注册",
 						"亲！您两次输入的密码不同哦");
 			}
 		}
@@ -156,15 +180,15 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 					mDialog.dismiss();
 					mDialog = null;
 				}
-				DialogFactory.ToastDialog(RegisterActivity.this, "QQ注册",
-						"亲！请牢记您的登录QQ哦：" + id);
+				DialogFactory.ToastDialog(RegisterActivity.this, "HS注册",
+						"亲！请牢记您的登录帐号哦：" + id);
 			} else {
 				if (mDialog != null) {
 					mDialog.dismiss();
 					mDialog = null;
 				}
-				DialogFactory.ToastDialog(RegisterActivity.this, "QQ注册",
-						"亲！很抱歉！QQ号暂时缺货哦");
+				DialogFactory.ToastDialog(RegisterActivity.this, "HS注册",
+						"亲！很抱歉！HS号暂时缺货哦");
 			}
 			break;
 
@@ -172,4 +196,23 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 			break;
 		}
 	}
+	public Bitmap zoomBitmap(Bitmap bitmap, int width, int height) 
+	{
+
+		int w = bitmap.getWidth();
+
+		int h = bitmap.getHeight();
+
+		Matrix matrix = new Matrix();
+
+		float scaleWidth = ((float) width / w);
+
+		float scaleHeight = ((float) height / h);
+
+		matrix.postScale(scaleWidth, scaleHeight);// 利用矩阵进行缩放不会造成内存溢出
+
+		Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+
+		return newbmp;
+	}  
 }

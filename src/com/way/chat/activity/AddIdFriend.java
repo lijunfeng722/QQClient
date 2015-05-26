@@ -59,7 +59,6 @@ public class AddIdFriend extends MyActivity {
 			// 通过Socket验证信息
 				Client client = application.getClient();
 				ClientOutputThread out = client.getClientOutputThread();
-//				System.out.println("fdfgdfjh");
 				TranObject<User> o = new TranObject<User>(TranObjectType.FriendCheck);
 				User u = new User();
 				u.setId(Integer.parseInt(accounts));
@@ -70,7 +69,6 @@ public class AddIdFriend extends MyActivity {
 	
 	@Override
 	public void getMessage(TranObject msg) {
-	//	System.out.println("fdfgdfjh");
 		if (msg != null) {
 			System.out.println("Result:" + msg);
 			switch (msg.getType()) {
@@ -84,24 +82,9 @@ public class AddIdFriend extends MyActivity {
 						mDialog.dismiss();
 				}
 				else {
-					// 保存用户信息
-					/*SharePreferenceUtil util = new SharePreferenceUtil(
-							LoginActivity.this, Constants.SAVE_USER);
-					util.setId(mAccounts.getText().toString());
-					util.setPasswd(mPassword.getText().toString());
-					util.setEmail(list.get(0).getEmail());
-					util.setName(list.get(0).getName());
-					util.setImg(list.get(0).getImg());
-
-					UserDB db = new UserDB(LoginActivity.this);
-					db.addUser(list);*/
-
-					
 					Intent intent = new Intent();  
-	                // 指定intent要启动的类  
 	                intent.setClass(AddIdFriend.this, StrangerMsg.class);  
 	                intent.putExtra(Constants.MSGKEY, msg);
-	                //启动一个新的Activity  
 	                startActivity(intent); 
 	                finish();
 					

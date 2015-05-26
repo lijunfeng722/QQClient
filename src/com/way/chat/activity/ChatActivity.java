@@ -73,6 +73,7 @@ public class ChatActivity extends MyActivity implements OnClickListener
 	private MessageDB messageDB;
 	private MyApplication application;
 	private static final int SCALE = 3;
+	private String photoSavePath;
 
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -282,6 +283,8 @@ public class ChatActivity extends MyActivity implements OnClickListener
 				entity.setImageByte(myBitmap);
 				entity.setIsComMsg(false);
 				entity.setMsgType(ChatMsgEntity.MSG_TYPE_IMAGE);
+				
+//				entity.setPath(savePath + "/" + fileName);
 				send(entity);
 			}
 			break;

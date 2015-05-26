@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp" 
-        android:layout_marginTop="20dp">
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp" >
 
         <Button
             android:id="@+id/mypicture_btn"
@@ -34,19 +34,20 @@
     </RelativeLayout>
 
     <ImageView
-        android:id="@+id/imageview"
+        android:id="@+id/imgVwInPhoto"
         android:layout_width="fill_parent"
-        android:layout_height="320dp" 
+        android:layout_height="fill_parent"
         android:layout_margin="5dp"
-        android:background="@drawable/yuanjiaojuxing_gray"/>
+        android:layout_weight="0.13"
+        android:background="@drawable/yuanjiaojuxing_gray" />
 
     <Button
         android:id="@+id/yes_btn"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
-        android:background="@drawable/yuanjiaojuxing_lightpurple"
         android:layout_margin="5dp"
-         android:textColor="#FFFFFF" 
-        android:text="确定" />
+        android:background="@drawable/yuanjiaojuxing_lightpurple"
+        android:text="确定"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>
